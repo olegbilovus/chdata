@@ -10,7 +10,13 @@ import 'constants.dart';
 
 class HiveProvider implements SearchProvider {
   final Map<String, List<String>> _boxesKeys = {};
-  bool _calledInit = false;
+  static bool _calledInit = false;
+
+  HiveProvider._sharedInstance();
+
+  static final HiveProvider _instance = HiveProvider._sharedInstance();
+
+  factory HiveProvider() => _instance;
 
   @override
   Future<void> init() async {
