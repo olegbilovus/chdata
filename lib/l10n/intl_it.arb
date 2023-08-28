@@ -1,5 +1,7 @@
 {
   "@@locale": "it",
 
-  "app_title": "CH DATA"
+  "app_title": "CH DATA",
+
+  "dialog_loading": "Caricamento"
 }

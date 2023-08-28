@@ -59,6 +59,16 @@ class S {
       args: [],
     );
   }
+
+  /// `Loading`
+  String get dialog_loading {
+    return Intl.message(
+      'Loading',
+      name: 'dialog_loading',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

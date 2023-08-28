@@ -12,16 +12,15 @@ class SearchEventInit extends SearchEvent {
 class SearchEventSearch<T> extends SearchEvent {
   final String key;
   final bool contains;
+  final String database;
 
-  Type get dataType => T.runtimeType;
-
-  const SearchEventSearch({required this.key, required this.contains});
+  const SearchEventSearch(
+      {required this.key, required this.contains, required this.database});
 }
 
 class SearchEventShowData<T> extends SearchEvent {
   final String key;
+  final String database;
 
-  Type get dataType => T.runtimeType;
-
-  const SearchEventShowData({required this.key});
+  const SearchEventShowData({required this.key, required this.database});
 }

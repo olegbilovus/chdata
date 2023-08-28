@@ -10,7 +10,7 @@ import 'constants.dart';
 
 class HiveProvider implements SearchProvider {
   final Map<String, List<String>> _boxesKeys = {};
-  static bool _calledInit = false;
+  static bool calledInit = false;
 
   HiveProvider._sharedInstance();
 
@@ -20,16 +20,20 @@ class HiveProvider implements SearchProvider {
 
   @override
   Future<void> init() async {
-    if (_calledInit) {
+    if (calledInit) {
       return;
     }
-    _calledInit = true;
+    calledInit = true;
     await Hive.initFlutter(assetsDir);
 
     for (final assetBox in assetsBoxes) {
       final (boxName, adapter) = assetBox;
       final box = await Hive.openLazyBox(boxName);
-      Hive.registerAdapter(adapter);
+      try {
+        Hive.registerAdapter(adapter);
+      } on HiveError catch (e) {
+        dev.log(e.toString());
+      }
       final boxKeys = box.keys;
 
       // This will happen only at the first startup
@@ -70,7 +74,7 @@ class HiveProvider implements SearchProvider {
       for (final boxKey in keys) {
         if (_getKey(boxKey.toLowerCase()).contains(keyLower)) {
           data.add(SearchData<T>(
-              key: key, data: retrieve ? await box.get(boxKey) : null));
+              key: boxKey, data: retrieve ? await box.get(boxKey) : null));
         }
       }
     } else {

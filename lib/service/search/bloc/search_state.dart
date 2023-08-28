@@ -4,7 +4,7 @@ import 'package:flutter/foundation.dart';
 @immutable
 abstract class SearchState {
   final bool isLoading;
-  final String? loadingText;
+  final String loadingText;
 
   const SearchState({this.isLoading = false, this.loadingText = 'Loading...'});
 }
@@ -15,16 +15,12 @@ class SearchStateNotInit extends SearchState {
 }
 
 class SearchStateSearching<T> extends SearchState {
-  Type get dataType => T.runtimeType;
+  final String database;
+  final List<SearchData<T>>? results;
 
-  const SearchStateSearching({super.isLoading, super.loadingText});
-}
-
-class SearchStateSearchResult<T> extends SearchState {
-  final List<SearchData<T>> results;
-
-  Type get dataType => T.runtimeType;
-
-  const SearchStateSearchResult(
-      {required this.results, super.isLoading, super.loadingText});
+  const SearchStateSearching(
+      {required this.database,
+      this.results,
+      super.isLoading,
+      super.loadingText});
 }

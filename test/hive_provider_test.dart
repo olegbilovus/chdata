@@ -44,7 +44,7 @@ void main() {
       final result = await provider.search<Mob>(
           database: mobListField, key: key, contains: true);
       expect(result.isNotEmpty, true);
-      expect(result.first.key.contains(key), true);
+      expect(result.first.key.toLowerCase().contains(key), true);
     });
 
     test('Search retrieve', () async {
