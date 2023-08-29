@@ -9,4 +9,7 @@ abstract class SearchProvider {
     bool contains = false,
     bool retrieve = false,
   });
+
+  Future<SearchData<T>> searchOne<T>(
+      {required String database, required String key});
 }

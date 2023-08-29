@@ -22,19 +22,30 @@ class SearchView extends StatefulWidget {
 }
 
 class _SearchViewState extends State<SearchView> {
+  late final TextEditingController _searchController;
   late final StreamController<List<SearchData>> _streamController;
 
   Stream<List<SearchData>> get _stream => _streamController.stream;
   List<SearchData> _result = [];
-  bool _contains = false;
-  String _pattern = '';
+  late bool _contains;
+  late String _pattern;
   String _database = '';
 
   @override
   void initState() {
+    _searchController = TextEditingController();
+    _pattern = SearchBloc.prefs.getString(searchPatternField) ?? '';
+    _searchController.text = _pattern;
+    _contains = SearchBloc.prefs.getBool(searchContainsField) ?? false;
     _streamController = StreamController<List<SearchData>>.broadcast(
         onListen: () => _streamController.sink.add(_result));
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -66,14 +77,13 @@ class _SearchViewState extends State<SearchView> {
                   children: [
                     Expanded(
                       child: TextField(
-                        decoration: const InputDecoration(
-                            labelText: 'Search',
-                            suffixIcon: Icon(Icons.search)),
+                        controller: _searchController,
+                        autocorrect: false,
+                        decoration: InputDecoration(
+                            labelText: context.loc.search_search,
+                            suffixIcon: const Icon(Icons.search)),
                         onChanged: (value) {
                           _pattern = value;
-                          if (_pattern.isEmpty) {
-                            _pattern = '';
-                          }
                           _refresh(context, _pattern);
                         },
                       ),
@@ -82,10 +92,9 @@ class _SearchViewState extends State<SearchView> {
                       value: _contains,
                       onChanged: (value) {
                         if (value ?? false) {
-                          context.snack(const Text('Filtering any character'));
+                          context.snack(Text(context.loc.search_contains));
                         } else {
-                          context.snack(
-                              const Text('Filtering the first characters'));
+                          context.snack(Text(context.loc.search_not_contains));
                         }
                         setState(() {
                           _contains = value!;
@@ -107,9 +116,10 @@ class _SearchViewState extends State<SearchView> {
                         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
                           final foundItems =
                               snapshot.data as Iterable<SearchData>;
-                          return DataListView(items: foundItems);
+                          return DataListView(
+                              items: foundItems, database: _database);
                         }
-                        return const Center(child: Text('No items'));
+                        return Center(child: Text(context.loc.search_empty));
                       default:
                         return const Scaffold(
                             body: Center(child: CircularProgressIndicator()));
@@ -125,6 +135,8 @@ class _SearchViewState extends State<SearchView> {
   }
 
   void _refresh(BuildContext context, String pattern) {
+    SearchBloc.prefs.setString(searchPatternField, _pattern);
+    SearchBloc.prefs.setBool(searchContainsField, _contains);
     switch (_database) {
       case mobListField:
         context.read<SearchBloc>().add(SearchEventSearch<Mob>(

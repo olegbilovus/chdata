@@ -18,4 +18,9 @@ class SearchService implements SearchProvider {
   }) async =>
       await provider.search(
           database: database, key: key, contains: contains, retrieve: retrieve);
+
+  @override
+  Future<SearchData<T>> searchOne<T>(
+          {required String database, required String key}) =>
+      provider.searchOne(database: database, key: key);
 }

@@ -3,5 +3,10 @@
 
   "app_title": "CH DATA",
 
-  "dialog_loading": "Loading"
+  "dialog_loading": "Loading",
+
+  "search_search": "Search",
+  "search_contains": "Filtering any character",
+  "search_not_contains": "Filtering the first characters",
+  "search_empty": "Not found"
 }

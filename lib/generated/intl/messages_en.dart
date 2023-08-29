@@ -23,6 +23,12 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_title": MessageLookupByLibrary.simpleMessage("CH DATA"),
-        "dialog_loading": MessageLookupByLibrary.simpleMessage("Loading")
+        "dialog_loading": MessageLookupByLibrary.simpleMessage("Loading"),
+        "search_contains":
+            MessageLookupByLibrary.simpleMessage("Filtering any character"),
+        "search_empty": MessageLookupByLibrary.simpleMessage("Not found"),
+        "search_not_contains": MessageLookupByLibrary.simpleMessage(
+            "Filtering the first characters"),
+        "search_search": MessageLookupByLibrary.simpleMessage("Search")
       };
 }

@@ -69,6 +69,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Search`
+  String get search_search {
+    return Intl.message(
+      'Search',
+      name: 'search_search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filtering any character`
+  String get search_contains {
+    return Intl.message(
+      'Filtering any character',
+      name: 'search_contains',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Filtering the first characters`
+  String get search_not_contains {
+    return Intl.message(
+      'Filtering the first characters',
+      name: 'search_not_contains',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not found`
+  String get search_empty {
+    return Intl.message(
+      'Not found',
+      name: 'search_empty',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

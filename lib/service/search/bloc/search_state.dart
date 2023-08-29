@@ -15,12 +15,25 @@ class SearchStateNotInit extends SearchState {
 }
 
 class SearchStateSearching<T> extends SearchState {
+  final String key;
   final String database;
   final List<SearchData<T>>? results;
 
   const SearchStateSearching(
       {required this.database,
       this.results,
+      this.key = '',
       super.isLoading,
       super.loadingText});
+}
+
+class SearchStateShowingData<T> extends SearchState {
+  final String database;
+  final SearchData<T> data;
+
+  const SearchStateShowingData(
+      {super.isLoading,
+      super.loadingText,
+      required this.database,
+      required this.data});
 }

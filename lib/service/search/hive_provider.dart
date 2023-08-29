@@ -89,4 +89,13 @@ class HiveProvider implements SearchProvider {
   }
 
   String _getKey(dynamic obj) => obj.split(separator)[0];
+
+  @override
+  Future<SearchData<T>> searchOne<T>(
+      {required String database, required String key}) async {
+    final box = Hive.lazyBox(database);
+    final data = await box.get(key);
+
+    return SearchData(key: key, data: data);
+  }
 }
