@@ -26,13 +26,16 @@ class HiveProvider implements SearchProvider {
     calledInit = true;
     await Hive.initFlutter(assetsDir);
 
-    for (final assetBox in assetsBoxes) {
-      final (boxName, adapter) = assetBox;
+    for (final assetBox in assetsBoxes.keys) {
+      final boxName = assetBox;
+      final adapters = assetsBoxes[assetBox]!.toList();
       final box = await Hive.openLazyBox(boxName);
-      try {
-        Hive.registerAdapter(adapter);
-      } on HiveError catch (e) {
-        dev.log(e.toString());
+      for (final registerAdapter in adapters) {
+        try {
+          registerAdapter(true);
+        } on HiveError catch (e) {
+          dev.log(e.toString());
+        }
       }
       final boxKeys = box.keys;
 

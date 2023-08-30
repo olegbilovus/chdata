@@ -44,3 +44,4 @@ app.*.map.json
 /android/app/release
 /hive/*.lock
 /test/hive/
+/lib/scripts/hive/constants.dart
