@@ -8,6 +8,7 @@ import 'package:chdata/service/search/constants.dart';
 import 'package:chdata/service/search/hive_provider.dart';
 import 'package:chdata/view/search/mob_view.dart';
 import 'package:chdata/view/search/search_view.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -19,13 +20,9 @@ void main() {
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     debugShowCheckedModeBanner: false,
     title: 'CH DATA',
-    theme: ThemeData(
-      colorScheme: const ColorScheme.light(),
-      appBarTheme: const AppBarTheme(color: Colors.indigo),
-    ),
-    darkTheme: ThemeData(
-        colorScheme: const ColorScheme.dark(),
-        appBarTheme: const AppBarTheme(color: Colors.indigo)),
+    theme: FlexThemeData.light(scheme: FlexScheme.cyanM3),
+    darkTheme:
+        FlexThemeData.dark(scheme: FlexScheme.cyanM3, darkIsTrueBlack: true),
     home: BlocProvider<SearchBloc>(
         create: (context) => SearchBloc(HiveProvider()),
         child: const HomePage()),
