@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:chdata/models/mob.dart';
+import 'package:chdata/models/mob/mob.dart';
 import 'package:chdata/service/search/constants.dart';
 import 'package:chdata/service/search/hive_provider.dart';
 import 'package:flutter/services.dart';

@@ -3,7 +3,7 @@ import 'dart:developer' as dev;
 
 import 'package:chdata/extensions/buildcontext/loc.dart';
 import 'package:chdata/extensions/buildcontext/snackbar.dart';
-import 'package:chdata/models/mob.dart';
+import 'package:chdata/models/mob/mob.dart';
 import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
 import 'package:chdata/service/search/constants.dart';

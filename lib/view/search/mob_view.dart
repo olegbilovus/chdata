@@ -1,8 +1,8 @@
 import 'dart:developer' as dev;
 
 import 'package:chdata/extensions/buildcontext/loc.dart';
-import 'package:chdata/models/constants.dart';
-import 'package:chdata/models/mob.dart';
+import 'package:chdata/models/mob/constants.dart';
+import 'package:chdata/models/mob/mob.dart';
 import 'package:chdata/service/search/bloc/search_bloc.dart';
 import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
@@ -45,7 +45,6 @@ class _MobViewState extends State<MobView> {
                 child: Column(
                   children: [
                     _createHeader(context.loc.mob_baseStats),
-                    const Divider(thickness: 2),
                     _createData({
                       context.loc.mob_level: data.data!.level.toString(),
                       context.loc.mob_mobOpinion: data.data!.opinion.name,

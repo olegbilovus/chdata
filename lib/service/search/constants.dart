@@ -1,6 +1,7 @@
+import 'package:chdata/models/item/item.dart';
 import 'package:hive/hive.dart';
 
-import '../../models/mob.dart';
+import '../../models/mob/mob.dart';
 
 const assetsDir = 'hive';
 const separator = '~';
@@ -12,6 +13,9 @@ final assetsBoxes = <String, List<Function(bool ovverride)>>{
   mobListField: [
     (override) => Hive.registerAdapter(MobOpinionAdapter(), override: override),
     (override) => Hive.registerAdapter(MobAdapter(), override: override)
+  ],
+  itemListField: [
+    (override) => Hive.registerAdapter(ItemAdapter(), override: override)
   ]
 };
 

@@ -3,18 +3,19 @@ import 'dart:io';
 import 'package:chdata/service/search/constants.dart';
 import 'package:hive/hive.dart';
 
-import '../../models/constants.dart';
-import '../../models/mob.dart';
+import '../../models/mob/constants.dart';
+import '../../models/mob/mob.dart';
 import 'constants.dart';
 
 void main() async {
   // filePath declared in ./constants.dart which is git ignored to avoid
   // exporting it
-  final data = File(filePath);
+  final data = File(mobFilePath);
 
   Hive.init(assetsDir);
-  Hive.registerAdapter(MobOpinionAdapter());
-  Hive.registerAdapter(MobAdapter());
+  for (final registerAdapter in assetsBoxes[mobListField]!) {
+    registerAdapter(true);
+  }
   final box = await Hive.openBox(mobListField);
   await box.clear();
 

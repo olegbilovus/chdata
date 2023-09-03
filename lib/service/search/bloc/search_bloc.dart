@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:chdata/models/mob.dart';
+import 'package:chdata/models/mob/mob.dart';
 import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
 import 'package:chdata/service/search/constants.dart';
