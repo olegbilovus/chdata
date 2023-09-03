@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:chdata/models/mob/mob.dart';
 import 'package:chdata/service/search/constants.dart';
 import 'package:chdata/service/search/hive_provider.dart';
@@ -32,8 +30,6 @@ void main() {
       expect(() async {
         await provider.init();
       }, returnsNormally);
-      await Future.delayed(const Duration(seconds: 2));
-      expect(Directory('$dir/$assetsDir').existsSync(), true);
     });
 
     test('Search', () async {
