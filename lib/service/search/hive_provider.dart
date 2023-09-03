@@ -29,7 +29,6 @@ class HiveProvider implements SearchProvider {
     for (final assetBox in assetsBoxes.keys) {
       final boxName = assetBox;
       final adapters = assetsBoxes[assetBox]!.toList();
-      final box = await Hive.openBox(boxName);
       for (final registerAdapter in adapters) {
         try {
           registerAdapter(true);
@@ -37,25 +36,11 @@ class HiveProvider implements SearchProvider {
           dev.log(e.toString());
         }
       }
-      final boxKeys = box.keys;
 
-      // This will happen only at the first startup
-      if (boxKeys.isEmpty) {
-        dev.log('Box $boxName is empty, filling the content from assets');
-        final bytesBoxIndex = await rootBundle.load('$assetsDir/$boxName.hive');
-        final tmpBox = await Hive.openBox('_tmp$boxName',
-            bytes: bytesBoxIndex.buffer.asUint8List());
-
-        _boxesKeys[boxName] = [];
-        for (final key in tmpBox.keys) {
-          box.put(key, tmpBox.get(key)!);
-          _boxesKeys[boxName]!.add(key.toString());
-        }
-        await box.flush();
-      } else {
-        dev.log('Box $boxName has ${boxKeys.length} keys');
-        _boxesKeys[boxName] = boxKeys.map((e) => e.toString()).toList();
-      }
+      final bytesBox = await rootBundle.load('$assetsDir/$boxName.hive');
+      final box =
+          await Hive.openBox(boxName, bytes: bytesBox.buffer.asUint8List());
+      _boxesKeys[boxName] = box.keys.map((e) => e.toString()).toList();
     }
   }
 
