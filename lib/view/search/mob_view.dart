@@ -34,7 +34,7 @@ class _MobViewState extends State<MobView> {
           },
           child: Scaffold(
             appBar: AppBar(
-                title: Text(data.key.split(separator)[0]),
+                title: Text(data.data!.name),
                 leading: IconButton(
                   icon: const Icon(Icons.arrow_back),
                   onPressed: () => _back(context),

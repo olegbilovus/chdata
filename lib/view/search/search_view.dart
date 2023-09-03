@@ -11,6 +11,7 @@ import 'package:chdata/service/search/search_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../models/item/item.dart';
 import '../../service/search/bloc/search_bloc.dart';
 import 'data_list_view.dart';
 
@@ -29,10 +30,11 @@ class _SearchViewState extends State<SearchView> {
   List<SearchData> _result = [];
   late bool _contains;
   late String _pattern;
-  String _database = '';
+  late String _database;
 
   @override
   void initState() {
+    _database = SearchBloc.prefs.getString(databaseField) ?? mobListField;
     _searchController = TextEditingController();
     _pattern = SearchBloc.prefs.getString(searchPatternField) ?? '';
     _searchController.text = _pattern;
@@ -68,6 +70,21 @@ class _SearchViewState extends State<SearchView> {
         return Scaffold(
           appBar: AppBar(
             title: Text(context.loc.app_title),
+            actions: [
+              DropdownMenu<String>(
+                initialSelection: _database,
+                onSelected: (String? value) {
+                  setState(() {
+                    _database = value!;
+                  });
+                  _refresh(context, _pattern);
+                },
+                dropdownMenuEntries: assetsBoxes.keys
+                    .map<DropdownMenuEntry<String>>(
+                        (e) => DropdownMenuEntry<String>(value: e, label: e))
+                    .toList(),
+              )
+            ],
           ),
           body: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -135,12 +152,17 @@ class _SearchViewState extends State<SearchView> {
   }
 
   void _refresh(BuildContext context, String pattern) {
+    SearchBloc.prefs.setString(databaseField, _database);
     SearchBloc.prefs.setString(searchPatternField, _pattern);
     SearchBloc.prefs.setBool(searchContainsField, _contains);
     switch (_database) {
       case mobListField:
         context.read<SearchBloc>().add(SearchEventSearch<Mob>(
             key: pattern, contains: _contains, database: mobListField));
+        break;
+      case itemListField:
+        context.read<SearchBloc>().add(SearchEventSearch<Item>(
+            key: pattern, contains: _contains, database: itemListField));
         break;
     }
   }

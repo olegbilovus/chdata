@@ -6,6 +6,7 @@ import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
 import 'package:chdata/service/search/constants.dart';
 import 'package:chdata/service/search/hive_provider.dart';
+import 'package:chdata/view/search/item_view.dart';
 import 'package:chdata/view/search/mob_view.dart';
 import 'package:chdata/view/search/search_view.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
@@ -51,6 +52,8 @@ class HomePage extends StatelessWidget {
           switch (state.database) {
             case mobListField:
               return const MobView();
+            case itemListField:
+              return const ItemView();
           }
         }
         return const Scaffold(body: Center(child: CircularProgressIndicator()));

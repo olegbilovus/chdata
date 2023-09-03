@@ -19,10 +19,18 @@ void main() async {
   final box = await Hive.openBox(mobListField);
   await box.clear();
 
-  final mobsStr =
-      data.readAsLinesSync().map((e) => e.trim().replaceAll("'", '')).toList();
+  final mobsStr = data.readAsLinesSync().map((e) => e.trim()).toList();
   for (final mobStr in mobsStr) {
-    final values = mobStr.split(separator);
+    final values = mobStr.split(separator).map((e) {
+      var str = e;
+      if (e.startsWith("'")) {
+        str = e.substring(1);
+      }
+      if (e.endsWith("'")) {
+        str = str.substring(0, str.length - 1);
+      }
+      return str.trim();
+    }).toList();
     final mob = parseValues(values);
     box.put('${mob.name}$separator${mob.id}', mob);
   }
