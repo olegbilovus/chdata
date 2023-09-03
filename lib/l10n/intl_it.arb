@@ -1,5 +1,11 @@
 {
   "@@locale": "it",
 
-  "app_title": "CH DATA"
+  "app_title": "CH DATA",
+
+  "dialog_loading": "Caricamento",
+  "search_search": "Ricerca",
+  "search_contains": "Filtraggio di qualsiasi carattere",
+  "search_not_contains": "Filtraggio dei primi caratteri",
+  "search_empty": "Non trovato"
 }

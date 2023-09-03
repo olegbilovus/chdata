@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:chdata/models/mob.dart';
+import 'package:chdata/models/mob/mob.dart';
 import 'package:chdata/service/search/constants.dart';
 import 'package:chdata/service/search/hive_provider.dart';
 import 'package:flutter/services.dart';
@@ -17,12 +17,14 @@ void main() {
   handler(MethodCall methodCall) async {
     return dir;
   }
+
   TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
       .setMockMethodCallHandler(channel, handler);
 
   group('Hive Provider', () {
     final provider = HiveProvider();
     const key = 'prot';
+    const completeKey = 'Proteus Prime~103028';
 
     setUp(() => provider.init());
 
@@ -44,7 +46,7 @@ void main() {
       final result = await provider.search<Mob>(
           database: mobListField, key: key, contains: true);
       expect(result.isNotEmpty, true);
-      expect(result.first.key.contains(key), true);
+      expect(result.first.key.toLowerCase().contains(key), true);
     });
 
     test('Search retrieve', () async {
@@ -66,6 +68,14 @@ void main() {
           database: mobListField, key: '', retrieve: true);
       expect(result.isNotEmpty, true);
       expect(result.first.data is Mob, true);
+    });
+
+    test('Search One', () async {
+      final result = await provider.searchOne<Mob>(
+          database: mobListField, key: completeKey);
+      expect(result, isNotNull);
+      expect(result.key.isNotEmpty, true);
+      expect(result.data, isNotNull);
     });
   });
 }
