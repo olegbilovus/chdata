@@ -29,7 +29,7 @@ class HiveProvider implements SearchProvider {
     for (final assetBox in assetsBoxes.keys) {
       final boxName = assetBox;
       final adapters = assetsBoxes[assetBox]!.toList();
-      final box = await Hive.openLazyBox(boxName);
+      final box = await Hive.openBox(boxName);
       for (final registerAdapter in adapters) {
         try {
           registerAdapter(true);
@@ -42,20 +42,16 @@ class HiveProvider implements SearchProvider {
       // This will happen only at the first startup
       if (boxKeys.isEmpty) {
         dev.log('Box $boxName is empty, filling the content from assets');
-        await box.close();
-        final boxMem = await Hive.openBox(boxName);
         final bytesBoxIndex = await rootBundle.load('$assetsDir/$boxName.hive');
         final tmpBox = await Hive.openBox('_tmp$boxName',
             bytes: bytesBoxIndex.buffer.asUint8List());
 
         _boxesKeys[boxName] = [];
         for (final key in tmpBox.keys) {
-          boxMem.put(key, tmpBox.get(key)!);
+          box.put(key, tmpBox.get(key)!);
           _boxesKeys[boxName]!.add(key.toString());
         }
-        await tmpBox.close();
-        await boxMem.close();
-        await Hive.openLazyBox(boxName);
+        await box.flush();
       } else {
         dev.log('Box $boxName has ${boxKeys.length} keys');
         _boxesKeys[boxName] = boxKeys.map((e) => e.toString()).toList();
@@ -71,21 +67,20 @@ class HiveProvider implements SearchProvider {
       bool retrieve = false}) async {
     final keyLower = key.toLowerCase();
     final keys = _boxesKeys[database] ?? [];
-    final box = Hive.lazyBox(database);
+    final box = Hive.box(database);
     final List<SearchData<T>> data = [];
     if (contains) {
       for (final boxKey in keys) {
         if (_getKey(boxKey.toLowerCase()).contains(keyLower)) {
           data.add(SearchData<T>(
-              key: boxKey, data: retrieve ? await box.get(boxKey) : null));
+              key: boxKey, data: retrieve ? box.get(boxKey) : null));
         }
       }
     } else {
       final result =
           BinarySearchOccurrences.search<String>(keys, key, getKey: _getKey);
       for (final res in result) {
-        data.add(SearchData<T>(
-            key: res, data: retrieve ? await box.get(res) : null));
+        data.add(SearchData<T>(key: res, data: retrieve ? box.get(res) : null));
       }
     }
     return data;
@@ -96,8 +91,8 @@ class HiveProvider implements SearchProvider {
   @override
   Future<SearchData<T>> searchOne<T>(
       {required String database, required String key}) async {
-    final box = Hive.lazyBox(database);
-    final data = await box.get(key);
+    final box = Hive.box(database);
+    final data = box.get(key);
 
     return SearchData(key: key, data: data);
   }
