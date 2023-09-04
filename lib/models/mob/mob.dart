@@ -1,5 +1,7 @@
 import 'package:hive/hive.dart';
 
+import 'enum/mob_opinion.dart';
+
 part 'mob.g.dart';
 
 @HiveType(typeId: 0)
@@ -181,16 +183,4 @@ class Mob {
       required this.woundEvade,
       required this.weakEvade,
       required this.mentalEvade});
-}
-
-@HiveType(typeId: 1)
-enum MobOpinion {
-  @HiveField(0)
-  friendly,
-  @HiveField(1)
-  hostile,
-  @HiveField(2)
-  passive,
-  @HiveField(3)
-  none
 }

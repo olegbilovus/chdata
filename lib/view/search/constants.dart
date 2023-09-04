@@ -5,3 +5,4 @@ const textStyleField = TextStyle(
   fontWeight: FontWeight.w400,
   decoration: TextDecoration.underline,
 );
+const dividerThickness = 1.5;
