@@ -1,16 +1,5 @@
-# chdata
+A Flutter application to search and view info about mobs and items in the game Celtic Heroes.
 
-A new Flutter project.
+The application can be built to work on Android, Web and Windows. The dependencies are compatible with iOS, macOS and Linux too but it was not tested.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Web version: https://ob-unisa.github.io/chdata-pages/
