@@ -8,6 +8,8 @@ import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
 import 'package:chdata/service/search/constants.dart';
 import 'package:chdata/view/search/constants.dart';
+import 'package:chdata/view/search/utility.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -44,10 +46,11 @@ class _MobViewState extends State<MobView> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    _createHeader(context.loc.mob_baseStats),
-                    _createData({
+                    createHeader(context.loc.mob_baseStats),
+                    createData({
                       context.loc.mob_level: data.data!.level.toString(),
-                      context.loc.mob_mobOpinion: data.data!.opinion.name,
+                      context.loc.mob_mobOpinion:
+                          data.data!.opinion.name.capitalize,
                       context.loc.mob_stars: data.data!.stars.toString(),
                       context.loc.mob_health: _numFormatter(data.data!.health),
                       context.loc.mob_energy: _numFormatter(data.data!.energy),
@@ -69,9 +72,9 @@ class _MobViewState extends State<MobView> {
                           _numFormatter(data.data!.goldMin),
                       context.loc.mob_goldMax: _numFormatter(data.data!.goldMax)
                     }),
-                    const Divider(thickness: 2),
-                    _createHeader(context.loc.mob_damage),
-                    _createData({
+                    const Divider(thickness: dividerThickness),
+                    createHeader(context.loc.mob_damage),
+                    createData({
                       context.loc.mob_pierce:
                           _numFormatter(data.data!.pierceDamage),
                       context.loc.mob_slash:
@@ -93,9 +96,9 @@ class _MobViewState extends State<MobView> {
                       context.loc.mob_chaos:
                           _numFormatter(data.data!.chaosDamage)
                     }),
-                    const Divider(thickness: 2),
-                    _createHeader(context.loc.mob_resistance),
-                    _createData({
+                    const Divider(thickness: dividerThickness),
+                    createHeader(context.loc.mob_resistance),
+                    createData({
                       context.loc.mob_pierce:
                           _numFormatter(data.data!.pierceResist),
                       context.loc.mob_slash:
@@ -117,9 +120,9 @@ class _MobViewState extends State<MobView> {
                       context.loc.mob_chaos:
                           _numFormatter(data.data!.chaosResist)
                     }),
-                    const Divider(thickness: 2),
-                    _createHeader(context.loc.mob_fishing),
-                    _createData({
+                    const Divider(thickness: dividerThickness),
+                    createHeader(context.loc.mob_fishing),
+                    createData({
                       context.loc.mob_fishingDamage:
                           _numFormatter(data.data!.fishingDamage),
                     }),
@@ -145,32 +148,5 @@ class _MobViewState extends State<MobView> {
       return immuneText;
     }
     return NumberFormat.decimalPattern().format(number);
-  }
-
-  Widget _createHeader(String text) {
-    return Text(
-      text,
-      textScaleFactor: 1.5,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
-  Widget _createData(Map<String, String> data) {
-    final List<Widget> children = [];
-    data.forEach((key, value) {
-      children.add(Wrap(
-        spacing: widthSB,
-        children: [
-          Text('$key:', style: textStyleField),
-          Text(value),
-        ],
-      ));
-    });
-
-    return Column(
-      children: children,
-    );
   }
 }

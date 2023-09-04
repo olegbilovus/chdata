@@ -4,10 +4,13 @@ import 'package:chdata/service/search/bloc/search_bloc.dart';
 import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
 import 'package:chdata/service/search/constants.dart';
+import 'package:chdata/view/search/utility.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/item/item.dart';
+import 'constants.dart';
 
 class ItemView extends StatefulWidget {
   const ItemView({super.key});
@@ -41,7 +44,19 @@ class _ItemViewState extends State<ItemView> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Text(data.data!.description),
+                    createHeader('Description'),
+                    createData({'': data.data!.description}),
+                    const Divider(thickness: dividerThickness),
+                    createHeader('Base stats'),
+                    createData({
+                      'Slot': data.data!.equipmentSlot.name.capitalize,
+                      'Sub type': data.data!.subType.name.capitalize,
+                      'No trade': data.data!.noTrade.toString().capitalize,
+                      'Stackable': data.data!.stackable.toString().capitalize,
+                      'Weight': data.data!.weight.toString(),
+                      'Buy': data.data!.buy.toString(),
+                      'Sell': data.data!.sell.toString()
+                    }),
                   ],
                 ),
               ),
