@@ -4,6 +4,7 @@ import 'package:chdata/service/search/constants.dart';
 import 'package:hive/hive.dart';
 
 import '../../models/mob/constants.dart';
+import '../../models/mob/enum/mob_opinion.dart';
 import '../../models/mob/mob.dart';
 import 'constants.dart';
 
@@ -89,16 +90,12 @@ Mob parseValues(List<String> values) {
 }
 
 MobOpinion getOpinion(String opinion) {
-  switch (opinion) {
-    case friendlyText:
-      return MobOpinion.friendly;
-    case hostileText:
-      return MobOpinion.hostile;
-    case passiveText:
-      return MobOpinion.passive;
-    default:
-      return MobOpinion.none;
-  }
+  return switch (opinion) {
+    friendlyText => MobOpinion.friendly,
+    hostileText => MobOpinion.hostile,
+    passiveText => MobOpinion.passive,
+    _ => MobOpinion.none
+  };
 }
 
 // Using a function for it in case the parsing changes,
