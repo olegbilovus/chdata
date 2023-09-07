@@ -40,7 +40,7 @@ jobs:
           git clone https://$API_TOKEN_GITHUB@github.com/$JIT_OWNER/$JIT_REPO.git
           cd $JIT_REPO
           rm -rf *
-          mv ./build/web/ .
+          mv ../build/web/ .
           git commit -am update || echo "no changes"
           git push
 
