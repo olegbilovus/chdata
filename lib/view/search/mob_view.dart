@@ -76,49 +76,65 @@ class _MobViewState extends State<MobView> {
                     createHeader(context.loc.mob_damage),
                     createData({
                       context.loc.mob_pierce:
-                          _numFormatter(data.data!.pierceDamage),
+                          _numFormatter(data.data!.damage.pierce),
                       context.loc.mob_slash:
-                          _numFormatter(data.data!.slashDamage),
+                          _numFormatter(data.data!.damage.slash),
                       context.loc.mob_crush:
-                          _numFormatter(data.data!.crushDamage),
+                          _numFormatter(data.data!.damage.crush),
                       context.loc.mob_poison:
-                          _numFormatter(data.data!.poisonDamage),
+                          _numFormatter(data.data!.damage.poison),
                       context.loc.mob_true:
-                          _numFormatter(data.data!.trueDamage),
+                          _numFormatter(data.data!.damage.truee),
                       context.loc.mob_heat:
-                          _numFormatter(data.data!.heatDamage),
+                          _numFormatter(data.data!.damage.heat),
                       context.loc.mob_cold:
-                          _numFormatter(data.data!.coldDamage),
+                          _numFormatter(data.data!.damage.cold),
                       context.loc.mob_magic:
-                          _numFormatter(data.data!.magicDamage),
+                          _numFormatter(data.data!.damage.magic),
                       context.loc.mob_divine:
-                          _numFormatter(data.data!.divineDamage),
+                          _numFormatter(data.data!.damage.divine),
                       context.loc.mob_chaos:
-                          _numFormatter(data.data!.chaosDamage)
+                          _numFormatter(data.data!.damage.chaos)
                     }),
                     const Divider(thickness: dividerThickness),
                     createHeader(context.loc.mob_resistance),
                     createData({
                       context.loc.mob_pierce:
-                          _numFormatter(data.data!.pierceResist),
+                          _numFormatter(data.data!.resist.pierce),
                       context.loc.mob_slash:
-                          _numFormatter(data.data!.slashResist),
+                          _numFormatter(data.data!.resist.slash),
                       context.loc.mob_crush:
-                          _numFormatter(data.data!.crushResist),
+                          _numFormatter(data.data!.resist.crush),
                       context.loc.mob_poison:
-                          _numFormatter(data.data!.poisonResist),
+                          _numFormatter(data.data!.resist.poison),
                       context.loc.mob_true:
-                          _numFormatter(data.data!.trueResist),
+                          _numFormatter(data.data!.resist.truee),
                       context.loc.mob_heat:
-                          _numFormatter(data.data!.heatResist),
+                          _numFormatter(data.data!.resist.heat),
                       context.loc.mob_cold:
-                          _numFormatter(data.data!.coldResist),
+                          _numFormatter(data.data!.resist.cold),
                       context.loc.mob_magic:
-                          _numFormatter(data.data!.magicResist),
+                          _numFormatter(data.data!.resist.magic),
                       context.loc.mob_divine:
-                          _numFormatter(data.data!.divineResist),
+                          _numFormatter(data.data!.resist.divine),
                       context.loc.mob_chaos:
-                          _numFormatter(data.data!.chaosResist)
+                          _numFormatter(data.data!.resist.chaos)
+                    }),
+                    const Divider(thickness: dividerThickness),
+                    createHeader('Evasion'),
+                    createData({
+                      context.loc.mob_physical:
+                          _numFormatter(data.data!.physicalEvade),
+                      context.loc.mob_spell:
+                          _numFormatter(data.data!.spellEvade),
+                      context.loc.mob_movement:
+                          _numFormatter(data.data!.moveEvade),
+                      context.loc.mob_wounding:
+                          _numFormatter(data.data!.woundEvade),
+                      context.loc.mob_weakening:
+                          _numFormatter(data.data!.weakEvade),
+                      context.loc.mob_mental:
+                          _numFormatter(data.data!.mentalEvade),
                     }),
                     const Divider(thickness: dividerThickness),
                     createHeader(context.loc.mob_fishing),

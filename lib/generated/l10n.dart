@@ -410,6 +410,66 @@ class S {
       args: [],
     );
   }
+
+  /// `Physical`
+  String get mob_physical {
+    return Intl.message(
+      'Physical',
+      name: 'mob_physical',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Spell`
+  String get mob_spell {
+    return Intl.message(
+      'Spell',
+      name: 'mob_spell',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Movement`
+  String get mob_movement {
+    return Intl.message(
+      'Movement',
+      name: 'mob_movement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wounding`
+  String get mob_wounding {
+    return Intl.message(
+      'Wounding',
+      name: 'mob_wounding',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weakening`
+  String get mob_weakening {
+    return Intl.message(
+      'Weakening',
+      name: 'mob_weakening',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Mental`
+  String get mob_mental {
+    return Intl.message(
+      'Mental',
+      name: 'mob_mental',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

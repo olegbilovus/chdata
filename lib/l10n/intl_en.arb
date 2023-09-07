@@ -35,5 +35,11 @@
   "mob_chaos": "Chaos",
   "mob_resistance": "Resistance",
   "mob_fishing": "Fishing",
-  "mob_fishingDamage": "Fishing damage"
+  "mob_fishingDamage": "Fishing damage",
+  "mob_physical": "Physical",
+  "mob_spell": "Spell",
+  "mob_movement": "Movement",
+  "mob_wounding": "Wounding",
+  "mob_weakening": "Weakening",
+  "mob_mental": "Mental"
 }
