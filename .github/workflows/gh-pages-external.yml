@@ -25,15 +25,17 @@ jobs:
       - name: Restore packages
         run: flutter pub get
 
-      - name: creates web build
+      - name: Creates web build
         run: flutter build web --release
 
-      - name: replace base href
+      - name: Replace base href
         run: sed -i 's\<base href="/">\<base href="./">\g' build/web/index.html
 
-      - name: upload
+      - name: Commit and push
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
+          JIT_OWNER: ${{ secrets.JIT_OWNER }}
+          JIT_REPO: ${{ secrets.JIT_REPO }}
         run: |
           git clone https://$API_TOKEN_GITHUB@github.com/$JIT_OWNER/$JIT_REPO.git
           cd $JIT_REPO
