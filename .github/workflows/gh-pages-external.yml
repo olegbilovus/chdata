@@ -40,8 +40,10 @@ jobs:
           git clone https://$API_TOKEN_GITHUB@github.com/$JIT_OWNER/$JIT_REPO.git
           cd $JIT_REPO
           rm -rf *
-          mv build/web/ .
+          mv ./build/web/ .
           git commit -am update || echo "no changes"
           git push
 
-      - uses: lhotari/action-upterm@v1
+      - name: Debug
+        if: always()
+        uses: lhotari/action-upterm@v1
