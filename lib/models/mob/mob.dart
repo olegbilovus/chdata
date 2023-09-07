@@ -1,3 +1,4 @@
+import 'package:chdata/models/advance_stats.dart';
 import 'package:hive/hive.dart';
 
 import 'enum/mob_opinion.dart';
@@ -46,96 +47,42 @@ class Mob {
   final int energy;
 
   @HiveField(13)
-  final int pierceDamage;
+  final AdvanceStats damage;
 
   @HiveField(14)
-  final int slashDamage;
-
-  @HiveField(15)
-  final int crushDamage;
-
-  @HiveField(16)
-  final int heatDamage;
-
-  @HiveField(17)
-  final int coldDamage;
-
-  @HiveField(18)
-  final int magicDamage;
-
-  @HiveField(19)
-  final int poisonDamage;
-
-  @HiveField(20)
-  final int divineDamage;
-
-  @HiveField(21)
-  final int chaosDamage;
-
-  @HiveField(22)
-  final int trueDamage;
-
-  @HiveField(23)
   final int fishingDamage;
 
-  @HiveField(24)
-  final int pierceResist;
+  @HiveField(15)
+  final AdvanceStats resist;
 
-  @HiveField(25)
-  final int slashResist;
-
-  @HiveField(26)
-  final int crushResist;
-
-  @HiveField(27)
-  final int heatResist;
-
-  @HiveField(28)
-  final int coldResist;
-
-  @HiveField(29)
-  final int magicResist;
-
-  @HiveField(30)
-  final int poisonResist;
-
-  @HiveField(31)
-  final int divineResist;
-
-  @HiveField(32)
-  final int chaosResist;
-
-  @HiveField(33)
-  final int trueResist;
-
-  @HiveField(34)
+  @HiveField(16)
   final int stars;
 
-  @HiveField(35)
+  @HiveField(17)
   final double attackRange;
 
-  @HiveField(36)
+  @HiveField(18)
   final int missileSpeed;
 
-  @HiveField(37)
+  @HiveField(19)
   final int xp;
 
-  @HiveField(38)
+  @HiveField(20)
   final int physicalEvade;
 
-  @HiveField(39)
+  @HiveField(21)
   final int spellEvade;
 
-  @HiveField(40)
+  @HiveField(22)
   final int moveEvade;
 
-  @HiveField(41)
+  @HiveField(23)
   final int woundEvade;
 
-  @HiveField(42)
+  @HiveField(24)
   final int weakEvade;
 
-  @HiveField(43)
+  @HiveField(25)
   final int mentalEvade;
 
   Mob(
@@ -152,27 +99,9 @@ class Mob {
       required this.defence,
       required this.attackSpeed,
       required this.energy,
-      required this.pierceDamage,
-      required this.slashDamage,
-      required this.crushDamage,
-      required this.heatDamage,
-      required this.coldDamage,
-      required this.magicDamage,
-      required this.poisonDamage,
-      required this.divineDamage,
-      required this.chaosDamage,
-      required this.trueDamage,
+      required this.damage,
       required this.fishingDamage,
-      required this.pierceResist,
-      required this.slashResist,
-      required this.crushResist,
-      required this.heatResist,
-      required this.coldResist,
-      required this.magicResist,
-      required this.poisonResist,
-      required this.divineResist,
-      required this.chaosResist,
-      required this.trueResist,
+      required this.resist,
       required this.stars,
       required this.attackRange,
       required this.missileSpeed,

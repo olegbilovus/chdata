@@ -1,3 +1,4 @@
+import 'package:chdata/models/advance_stats.dart';
 import 'package:chdata/models/item/enum/subtype.dart';
 import 'package:chdata/models/item/item.dart';
 import 'package:hive/hive.dart';
@@ -14,8 +15,10 @@ const itemListField = 'itemlist';
 
 final assetsBoxes = <String, List<Function(bool ovverride)>>{
   mobListField: [
+    (override) =>
+        Hive.registerAdapter(AdvanceStatsAdapter(), override: override),
     (override) => Hive.registerAdapter(MobOpinionAdapter(), override: override),
-        (override) => Hive.registerAdapter(MobAdapter(), override: override)
+    (override) => Hive.registerAdapter(MobAdapter(), override: override)
   ],
   itemListField: [
     (override) => Hive.registerAdapter(SubTypeAdapter(), override: override),
