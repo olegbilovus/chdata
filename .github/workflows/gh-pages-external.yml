@@ -31,13 +31,13 @@ jobs:
       - name: replace base href
         run: sed -i 's\<base href="/">\<base href="./">\g' build/web/index.html
 
-      - name: Pushes to chdata-pages repository
-        uses: cpina/github-action-push-to-another-repository@main
+      - name: upload
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source-directory: 'build/web'
-          destination-github-username: $CPINA_OWNER
-          destination-repository-name: $CPINA_REPO
-          user-email: update
-          target-branch: main
+        run: |
+          git clone https://$API_TOKEN_GITHUB@github.com/$JIT_OWNER/$JIT_REPO.git
+          cd $JIT_REPO
+          rm -rf *
+          mv build/web/ .
+          git commit -am update || echo "no changes in docs"
+          git push
