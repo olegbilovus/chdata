@@ -1,11 +1,11 @@
 import 'dart:developer' as dev;
 
-import 'package:chdata/extensions/buildcontext/snackbar.dart';
 import 'package:chdata/service/search/bloc/search_bloc.dart';
 import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
 import 'package:chdata/service/search/constants.dart';
 import 'package:chdata/service/search/hive_provider.dart';
+import 'package:chdata/view/loading/loading_view.dart';
 import 'package:chdata/view/search/item_view.dart';
 import 'package:chdata/view/search/mob_view.dart';
 import 'package:chdata/view/search/search_view.dart';
@@ -36,13 +36,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     context.read<SearchBloc>().add(const SearchEventInit());
-    return BlocConsumer<SearchBloc, SearchState>(
-      listener: (context, state) async {
-        dev.log('Loading: ${state.isLoading}');
-        if (state.isLoading) {
-          context.snack(Text(state.loadingText));
-        }
-      },
+    return BlocBuilder<SearchBloc, SearchState>(
       builder: (context, state) {
         dev.log(state.runtimeType.toString());
         if (state is SearchStateSearching) {
@@ -56,7 +50,7 @@ class HomePage extends StatelessWidget {
               return const ItemView();
           }
         }
-        return const Scaffold(body: Center(child: CircularProgressIndicator()));
+        return const LoadingView();
       },
     );
   }

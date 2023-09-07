@@ -3,15 +3,17 @@ import 'package:flutter/foundation.dart';
 
 @immutable
 abstract class SearchState {
-  final bool isLoading;
+  const SearchState();
+}
+
+class SearchStateLoading extends SearchState {
   final String loadingText;
 
-  const SearchState({this.isLoading = false, this.loadingText = 'Loading...'});
+  const SearchStateLoading({this.loadingText = 'Loading ...'});
 }
 
 class SearchStateNotInit extends SearchState {
-  const SearchStateNotInit(
-      {super.isLoading = true, super.loadingText = 'Loading assets...'});
+  const SearchStateNotInit();
 }
 
 class SearchStateSearching<T> extends SearchState {
@@ -20,20 +22,12 @@ class SearchStateSearching<T> extends SearchState {
   final List<SearchData<T>>? results;
 
   const SearchStateSearching(
-      {required this.database,
-      this.results,
-      this.key = '',
-      super.isLoading,
-      super.loadingText});
+      {required this.database, this.results, this.key = ''});
 }
 
 class SearchStateShowingData<T> extends SearchState {
   final String database;
   final SearchData<T> data;
 
-  const SearchStateShowingData(
-      {super.isLoading,
-      super.loadingText,
-      required this.database,
-      required this.data});
+  const SearchStateShowingData({required this.database, required this.data});
 }
