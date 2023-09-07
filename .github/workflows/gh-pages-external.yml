@@ -2,7 +2,8 @@ name: gh-pages-external
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, gh-pages-external ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -24,22 +25,24 @@ jobs:
       - name: Restore packages
         run: flutter pub get
 
-      - name: creates web build
+      - name: Creates web build
         run: flutter build web --release
 
-      - name: replace base href
+      - name: Replace base href
         run: sed -i 's\<base href="/">\<base href="./">\g' build/web/index.html
 
-      - name: Pushes to chdata-pages repository
-        uses: cpina/github-action-push-to-another-repository@main
+      - name: Commit and push
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-        with:
-          source-directory: 'build/web'
-          env:
-            CPINA_OWNER: ${{ github.event.repository.owner }}
-            CPINA_REPO: '${{ github.event.repository.name }}-pages'
-          destination-github-username: $CPINA_OWNER
-          destination-repository-name: $CPINA_REPO
-          user-email: update
-          target-branch: main
+          JIT_OWNER: ${{ secrets.JIT_OWNER }}
+          JIT_REPO: ${{ secrets.JIT_REPO }}
+        run: |
+          git clone https://$API_TOKEN_GITHUB@github.com/$JIT_OWNER/$JIT_REPO.git
+          cd $JIT_REPO
+          rm -rf *
+          mv ../build/web/* .
+          git config --global user.email "update[bot]@bots.noreply.github.com"
+          git config --global user.name "update[bot]"
+          git add .
+          git commit -am update || echo "no changes"
+          git push
