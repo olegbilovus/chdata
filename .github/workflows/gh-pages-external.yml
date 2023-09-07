@@ -34,7 +34,7 @@ jobs:
         uses: cpina/github-action-push-to-another-repository@main
         env:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
-          CPINA_OWNER: ${{ github.event.repository.owner }}
+          CPINA_OWNER: '${{ github.event.repository.owner }}'
           CPINA_REPO: '${{ github.event.repository.name }}-pages'
         with:
           source-directory: 'build/web'
