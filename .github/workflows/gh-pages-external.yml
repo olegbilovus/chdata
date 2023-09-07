@@ -37,12 +37,12 @@ jobs:
           JIT_OWNER: ${{ secrets.JIT_OWNER }}
           JIT_REPO: ${{ secrets.JIT_REPO }}
         run: |
-          ls ./build/web/
           git clone https://$API_TOKEN_GITHUB@github.com/$JIT_OWNER/$JIT_REPO.git
           cd $JIT_REPO
           rm -rf *
           mv ../build/web/* .
           git config --global user.email "update[bot]@bots.noreply.github.com"
           git config --global user.name "update[bot]"
+          git add .
           git commit -am update || echo "no changes"
           git push
