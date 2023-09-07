@@ -36,7 +36,10 @@ jobs:
           API_TOKEN_GITHUB: ${{ secrets.API_TOKEN_GITHUB }}
         with:
           source-directory: 'build/web'
-          destination-github-username: ${{ github.event.repository.owner }}
-          destination-repository-name: ${{ github.event.repository.name }}-pages
+          env:
+            CPINA_OWNER: ${{ github.event.repository.owner }}
+            CPINA_REPO: '${{ github.event.repository.name }}-pages'
+          destination-github-username: $CPINA_OWNER
+          destination-repository-name: $CPINA_REPO
           user-email: update
           target-branch: main
