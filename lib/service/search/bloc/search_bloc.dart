@@ -28,17 +28,17 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final key = prefs.getString(searchPatternField) ?? '';
       final contains = prefs.getBool(searchContainsField) ?? false;
       switch (database) {
-        case mobListField:
-          final allResults = await provider.search<Mob>(
-              database: database, key: key, contains: contains);
-          emit(SearchStateSearching<Mob>(
-              results: allResults, isLoading: false, database: database));
-          break;
         case itemListField:
           final allResults = await provider.search<Item>(
               database: database, key: key, contains: contains);
           emit(SearchStateSearching<Item>(
               results: allResults, isLoading: false, database: database));
+          break;
+        default:
+          final allResults = await provider.search<Mob>(
+              database: mobListField, key: key, contains: contains);
+          emit(SearchStateSearching<Mob>(
+              results: allResults, isLoading: false, database: mobListField));
           break;
       }
     });

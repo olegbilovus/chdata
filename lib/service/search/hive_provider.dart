@@ -18,6 +18,8 @@ class HiveProvider implements SearchProvider {
 
   factory HiveProvider() => _instance;
 
+  final openedBox = <String, bool>{};
+
   @override
   Future<void> init() async {
     if (calledInit) {
@@ -25,23 +27,6 @@ class HiveProvider implements SearchProvider {
     }
     calledInit = true;
     await Hive.initFlutter(assetsDir);
-
-    for (final assetBox in assetsBoxes.keys) {
-      final boxName = assetBox;
-      final adapters = assetsBoxes[assetBox]!.toList();
-      for (final registerAdapter in adapters) {
-        try {
-          registerAdapter(true);
-        } on HiveError catch (e) {
-          dev.log(e.toString());
-        }
-      }
-
-      final bytesBox = await rootBundle.load('$assetsDir/$boxName.hive');
-      final box =
-          await Hive.openBox(boxName, bytes: bytesBox.buffer.asUint8List());
-      _boxesKeys[boxName] = box.keys.map((e) => e.toString()).toList();
-    }
   }
 
   @override
@@ -50,9 +35,10 @@ class HiveProvider implements SearchProvider {
       required String key,
       bool contains = false,
       bool retrieve = false}) async {
-    final keyLower = key.toLowerCase();
+    final box = await _loadDatabase(database);
     final keys = _boxesKeys[database] ?? [];
-    final box = Hive.box(database);
+    final keyLower = key.toLowerCase();
+
     final List<SearchData<T>> data = [];
     if (contains) {
       for (final boxKey in keys) {
@@ -76,9 +62,32 @@ class HiveProvider implements SearchProvider {
   @override
   Future<SearchData<T>> searchOne<T>(
       {required String database, required String key}) async {
-    final box = Hive.box(database);
+    final box = await _loadDatabase(database);
     final data = box.get(key);
 
     return SearchData(key: key, data: data);
+  }
+
+  Future<Box> _loadDatabase(String database) async {
+    if (openedBox[database] ?? false) {
+      return Hive.box(database);
+    }
+    final adapters = assetsBoxes[database]!.toList();
+    for (final registerAdapter in adapters) {
+      try {
+        registerAdapter(true);
+      } on HiveError catch (e) {
+        dev.log(e.toString());
+      }
+    }
+
+    final bytesBox = await rootBundle.load('$assetsDir/$database.hive');
+    final box =
+        await Hive.openBox(database, bytes: bytesBox.buffer.asUint8List());
+    _boxesKeys[database] = box.keys.map((e) => e.toString()).toList();
+    openedBox[database] = true;
+
+    dev.log('Loaded $database box');
+    return box;
   }
 }

@@ -34,7 +34,12 @@ class _SearchViewState extends State<SearchView> {
 
   @override
   void initState() {
-    _database = SearchBloc.prefs.getString(databaseField) ?? mobListField;
+    final prefDatabase = SearchBloc.prefs.getString(databaseField) ?? '';
+    if (assetsBoxes.keys.contains(prefDatabase)) {
+      _database = prefDatabase;
+    } else {
+      _database = mobListField;
+    }
     _searchController = TextEditingController();
     _pattern = SearchBloc.prefs.getString(searchPatternField) ?? '';
     _searchController.text = _pattern;
@@ -151,10 +156,10 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
-  void _refresh(BuildContext context, String pattern) {
-    SearchBloc.prefs.setString(databaseField, _database);
-    SearchBloc.prefs.setString(searchPatternField, _pattern);
-    SearchBloc.prefs.setBool(searchContainsField, _contains);
+  void _refresh(BuildContext context, String pattern) async {
+    await SearchBloc.prefs.setString(databaseField, _database);
+    await SearchBloc.prefs.setString(searchPatternField, _pattern);
+    await SearchBloc.prefs.setBool(searchContainsField, _contains);
     switch (_database) {
       case mobListField:
         context.read<SearchBloc>().add(SearchEventSearch<Mob>(
