@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3.5.3
+      - uses: lhotari/action-upterm@v1
 
       - name: Install and set Flutter version
         uses: subosito/flutter-action@v2.10.0
@@ -41,5 +42,5 @@ jobs:
           cd $JIT_REPO
           rm -rf *
           mv build/web/ .
-          git commit -am update || echo "no changes in docs"
+          git commit -am update || echo "no changes"
           git push
