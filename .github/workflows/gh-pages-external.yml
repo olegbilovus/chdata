@@ -41,9 +41,7 @@ jobs:
           cd $JIT_REPO
           rm -rf *
           mv ../build/web/ .
+          git config --global user.email "update[bot]@bots.noreply.github.com"
+          git config --global user.name "update[bot]"
           git commit -am update || echo "no changes"
           git push
-
-      - name: Debug
-        if: always()
-        uses: lhotari/action-upterm@v1
