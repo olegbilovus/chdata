@@ -29,13 +29,16 @@ class ItemAdapter extends TypeAdapter<Item> {
       attackSpeed: fields[9] as int,
       subType: fields[10] as SubType,
       noTrade: fields[11] as bool,
+      damage: fields[12] as AdvanceStats,
+      fishingDamage: fields[13] as int,
+      bonusStats: fields[14] as AdvanceStatsBonus,
     );
   }
 
   @override
   void write(BinaryWriter writer, Item obj) {
     writer
-      ..writeByte(12)
+      ..writeByte(15)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -59,7 +62,13 @@ class ItemAdapter extends TypeAdapter<Item> {
       ..writeByte(10)
       ..write(obj.subType)
       ..writeByte(11)
-      ..write(obj.noTrade);
+      ..write(obj.noTrade)
+      ..writeByte(12)
+      ..write(obj.damage)
+      ..writeByte(13)
+      ..write(obj.fishingDamage)
+      ..writeByte(14)
+      ..write(obj.bonusStats);
   }
 
   @override
