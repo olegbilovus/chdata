@@ -13,5 +13,7 @@ enum Class {
   @HiveField(3)
   ranger,
   @HiveField(4)
-  rogue
+  rogue,
+  @HiveField(5)
+  none
 }

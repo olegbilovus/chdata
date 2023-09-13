@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
+import '../../models/mob/constants.dart';
 import 'constants.dart';
+
+String numFormatter(dynamic number) {
+  if (number == immuneValue) {
+    return immuneText;
+  }
+  return NumberFormat.decimalPattern().format(number);
+}
 
 Widget createHeader(String text) {
   return Text(

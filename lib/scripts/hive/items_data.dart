@@ -61,9 +61,9 @@ Item parseValues(List<String> values) {
     noTrade: parseBool(values[11]),
     damage: damage,
     fishingDamage: fishingDamage,
-    bonusStats: getAdvanceStatsBonus(values[12]),
-    requirements: getRequirements(values[13]),
-    clasz: getClass(values[14]),
+    bonusStats: getAdvanceStatsBonus(values[13]),
+    requirements: getRequirements(values[14]),
+    clasz: getClass(values[15]),
   );
 }
 
@@ -366,6 +366,7 @@ Class getClass(String value) {
     '2' => Class.druid,
     '3' => Class.mage,
     '4' => Class.ranger,
-    _ => Class.rogue,
+    '5' => Class.rogue,
+    _ => Class.none
   };
 }

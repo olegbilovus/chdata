@@ -23,6 +23,8 @@ class ClassAdapter extends TypeAdapter<Class> {
         return Class.ranger;
       case 4:
         return Class.rogue;
+      case 5:
+        return Class.none;
       default:
         return Class.warrior;
     }
@@ -45,6 +47,9 @@ class ClassAdapter extends TypeAdapter<Class> {
         break;
       case Class.rogue:
         writer.writeByte(4);
+        break;
+      case Class.none:
+        writer.writeByte(5);
         break;
     }
   }

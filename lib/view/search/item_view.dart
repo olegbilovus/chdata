@@ -1,5 +1,7 @@
 import 'dart:developer' as dev;
 
+import 'package:chdata/extensions/buildcontext/loc.dart';
+import 'package:chdata/models/item/enum/subtype.dart';
 import 'package:chdata/service/search/bloc/search_bloc.dart';
 import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
@@ -44,18 +46,114 @@ class _ItemViewState extends State<ItemView> {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    createHeader('Description'),
+                    createHeader(context.loc.item_description),
                     createData({'': data.data!.description}),
                     const Divider(thickness: dividerThickness),
-                    createHeader('Base stats'),
+                    createHeader(context.loc.item_baseStats),
                     createData({
-                      'Slot': data.data!.equipmentSlot.name.capitalize,
-                      'Sub type': data.data!.subType.name.capitalize,
-                      'No trade': data.data!.noTrade.toString().capitalize,
-                      'Stackable': data.data!.stackable.toString().capitalize,
-                      'Weight': data.data!.weight.toString(),
-                      'Buy': data.data!.buy.toString(),
-                      'Sell': data.data!.sell.toString()
+                      context.loc.item_slot:
+                          data.data!.equipmentSlot.name.capitalize,
+                      context.loc.item_subType:
+                          data.data!.subType.name.capitalize,
+                      context.loc.item_class: data.data!.clasz.name.capitalize,
+                      context.loc.item_noTrade:
+                          data.data!.noTrade.toString().capitalize,
+                      context.loc.item_stackable:
+                          data.data!.stackable.toString().capitalize,
+                      context.loc.item_weight: data.data!.weight.toString(),
+                      context.loc.item_buy: data.data!.buy.toString(),
+                      context.loc.item_sell: data.data!.sell.toString()
+                    }),
+                    const Divider(thickness: dividerThickness),
+                    createHeader(context.loc.mob_damage),
+                    createData({
+                      context.loc.item_attackSpeed:
+                          numFormatter(data.data!.attackSpeed),
+                      context.loc.mob_pierce:
+                          numFormatter(data.data!.damage.pierce),
+                      context.loc.mob_slash:
+                          numFormatter(data.data!.damage.slash),
+                      context.loc.mob_crush:
+                          numFormatter(data.data!.damage.crush),
+                      context.loc.mob_poison:
+                          numFormatter(data.data!.damage.poison),
+                      context.loc.mob_true:
+                          numFormatter(data.data!.damage.truee),
+                      context.loc.mob_heat:
+                          numFormatter(data.data!.damage.heat),
+                      context.loc.mob_cold:
+                          numFormatter(data.data!.damage.cold),
+                      context.loc.mob_magic:
+                          numFormatter(data.data!.damage.magic),
+                      context.loc.mob_divine:
+                          numFormatter(data.data!.damage.divine),
+                      context.loc.mob_chaos:
+                          numFormatter(data.data!.damage.chaos),
+                    }),
+                    const Divider(thickness: dividerThickness),
+                    createHeader(context.loc.mob_resistance),
+                    createData({
+                      context.loc.item_armor: numFormatter(data.data!.armor),
+                      context.loc.mob_pierce:
+                          numFormatter(data.data!.bonusStats.pierce),
+                      context.loc.mob_slash:
+                          numFormatter(data.data!.bonusStats.slash),
+                      context.loc.mob_crush:
+                          numFormatter(data.data!.bonusStats.crush),
+                      context.loc.mob_poison:
+                          numFormatter(data.data!.bonusStats.poison),
+                      context.loc.mob_true:
+                          numFormatter(data.data!.bonusStats.truee),
+                      context.loc.mob_heat:
+                          numFormatter(data.data!.bonusStats.heat),
+                      context.loc.mob_cold:
+                          numFormatter(data.data!.bonusStats.cold),
+                      context.loc.mob_magic:
+                          numFormatter(data.data!.bonusStats.magic),
+                      context.loc.mob_divine:
+                          numFormatter(data.data!.bonusStats.divine),
+                      context.loc.mob_chaos:
+                          numFormatter(data.data!.bonusStats.chaos),
+                    }),
+                    const Divider(thickness: dividerThickness),
+                    createHeader(context.loc.item_bonus),
+                    createData({
+                      context.loc.mob_attack:
+                          numFormatter(data.data!.bonusStats.attack),
+                      context.loc.mob_defence:
+                          numFormatter(data.data!.bonusStats.defence),
+                      context.loc.mob_health:
+                          numFormatter(data.data!.bonusStats.health),
+                      context.loc.mob_energy:
+                          numFormatter(data.data!.bonusStats.energy),
+                    }),
+                    const Divider(thickness: dividerThickness),
+                    createHeader(context.loc.item_requirement),
+                    createData({
+                      _getLvlType(data.data!.subType):
+                          numFormatter(data.data!.requirements.level),
+                      context.loc.item_strength:
+                          numFormatter(data.data!.requirements.strength),
+                      context.loc.item_dexterity:
+                          numFormatter(data.data!.requirements.dexterity),
+                      context.loc.item_focus:
+                          numFormatter(data.data!.requirements.focus),
+                      context.loc.item_vitality:
+                          numFormatter(data.data!.requirements.vitality),
+                      context.loc.item_maleOnly: data
+                          .data!.requirements.maleOnly
+                          .toString()
+                          .capitalize,
+                    }),
+                    const Divider(thickness: dividerThickness),
+                    createHeader(context.loc.mob_fishing),
+                    createData({
+                      context.loc.mob_fishingDamage:
+                          numFormatter(data.data!.fishingDamage),
+                      context.loc.item_fishingResist:
+                          numFormatter(data.data!.bonusStats.fishingResist),
+                      context.loc.item_fishingConcentration:
+                          numFormatter(data.data!.bonusStats.concentration),
                     }),
                   ],
                 ),
@@ -72,5 +170,16 @@ class _ItemViewState extends State<ItemView> {
         key: SearchBloc.prefs.getString(searchPatternField) ?? '',
         database: itemListField,
         contains: SearchBloc.prefs.getBool(searchContainsField) ?? false));
+  }
+
+  String _getLvlType(SubType type) {
+    return switch (type) {
+      SubType.fishingRod ||
+      SubType.fishingItem =>
+        '${context.loc.mob_level} (${context.loc.mob_fishing})',
+      SubType.cooking =>
+        '${context.loc.mob_level} (${context.loc.item_cooking}))',
+      _ => context.loc.mob_level
+    };
   }
 }

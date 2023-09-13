@@ -469,6 +469,226 @@ class S {
       args: [],
     );
   }
+
+  /// `Description`
+  String get item_description {
+    return Intl.message(
+      'Description',
+      name: 'item_description',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Attack speed`
+  String get item_attackSpeed {
+    return Intl.message(
+      'Attack speed',
+      name: 'item_attackSpeed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Base stats`
+  String get item_baseStats {
+    return Intl.message(
+      'Base stats',
+      name: 'item_baseStats',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Slot`
+  String get item_slot {
+    return Intl.message(
+      'Slot',
+      name: 'item_slot',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sub type`
+  String get item_subType {
+    return Intl.message(
+      'Sub type',
+      name: 'item_subType',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No trade`
+  String get item_noTrade {
+    return Intl.message(
+      'No trade',
+      name: 'item_noTrade',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stackable`
+  String get item_stackable {
+    return Intl.message(
+      'Stackable',
+      name: 'item_stackable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Weight`
+  String get item_weight {
+    return Intl.message(
+      'Weight',
+      name: 'item_weight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Buy`
+  String get item_buy {
+    return Intl.message(
+      'Buy',
+      name: 'item_buy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sell`
+  String get item_sell {
+    return Intl.message(
+      'Sell',
+      name: 'item_sell',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Class`
+  String get item_class {
+    return Intl.message(
+      'Class',
+      name: 'item_class',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Armor`
+  String get item_armor {
+    return Intl.message(
+      'Armor',
+      name: 'item_armor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Bonus`
+  String get item_bonus {
+    return Intl.message(
+      'Bonus',
+      name: 'item_bonus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Requirement`
+  String get item_requirement {
+    return Intl.message(
+      'Requirement',
+      name: 'item_requirement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Strength`
+  String get item_strength {
+    return Intl.message(
+      'Strength',
+      name: 'item_strength',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dexterity`
+  String get item_dexterity {
+    return Intl.message(
+      'Dexterity',
+      name: 'item_dexterity',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Focus`
+  String get item_focus {
+    return Intl.message(
+      'Focus',
+      name: 'item_focus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Vitality`
+  String get item_vitality {
+    return Intl.message(
+      'Vitality',
+      name: 'item_vitality',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Male only`
+  String get item_maleOnly {
+    return Intl.message(
+      'Male only',
+      name: 'item_maleOnly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fishing resist`
+  String get item_fishingResist {
+    return Intl.message(
+      'Fishing resist',
+      name: 'item_fishingResist',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fishing concentration`
+  String get item_fishingConcentration {
+    return Intl.message(
+      'Fishing concentration',
+      name: 'item_fishingConcentration',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cooking`
+  String get item_cooking {
+    return Intl.message(
+      'Cooking',
+      name: 'item_cooking',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {
