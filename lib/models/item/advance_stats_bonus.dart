@@ -18,7 +18,7 @@ class AdvanceStatsBonus extends AdvanceStats {
   @HiveField(15)
   final int concentration;
 
-  AdvanceStatsBonus(
+  const AdvanceStatsBonus(
       {required super.pierce,
       required super.slash,
       required super.crush,

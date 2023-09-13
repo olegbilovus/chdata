@@ -1,5 +1,7 @@
 import 'package:chdata/models/advance_stats.dart';
+import 'package:chdata/models/item/enum/class.dart';
 import 'package:chdata/models/item/enum/subtype.dart';
+import 'package:chdata/models/item/requirements.dart';
 import 'package:hive/hive.dart';
 
 import 'advance_stats_bonus.dart';
@@ -54,21 +56,28 @@ class Item {
   @HiveField(14)
   final AdvanceStatsBonus bonusStats;
 
-  Item({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.stackable,
-    required this.armor,
-    required this.equipmentSlot,
-    required this.buy,
-    required this.sell,
-    required this.weight,
-    required this.attackSpeed,
-    required this.subType,
-    required this.noTrade,
-    required this.damage,
-    required this.fishingDamage,
-    required this.bonusStats,
-  });
+  @HiveField(15)
+  final Requirements requirements;
+
+  @HiveField(16)
+  final Class clasz;
+
+  const Item(
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.stackable,
+      required this.armor,
+      required this.equipmentSlot,
+      required this.buy,
+      required this.sell,
+      required this.weight,
+      required this.attackSpeed,
+      required this.subType,
+      required this.noTrade,
+      required this.damage,
+      required this.fishingDamage,
+      required this.bonusStats,
+      required this.requirements,
+      required this.clasz});
 }

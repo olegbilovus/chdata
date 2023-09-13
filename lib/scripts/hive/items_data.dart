@@ -3,8 +3,10 @@ import 'dart:io';
 import 'package:chdata/models/advance_stats.dart';
 import 'package:chdata/models/item/advance_stats_bonus.dart';
 import 'package:chdata/models/item/constants.dart';
+import 'package:chdata/models/item/enum/class.dart';
 import 'package:chdata/models/item/enum/subtype.dart';
 import 'package:chdata/models/item/item.dart';
+import 'package:chdata/models/item/requirements.dart';
 import 'package:chdata/service/search/constants.dart';
 import 'package:hive/hive.dart';
 
@@ -60,6 +62,8 @@ Item parseValues(List<String> values) {
     damage: damage,
     fishingDamage: fishingDamage,
     bonusStats: getAdvanceStatsBonus(values[12]),
+    requirements: getRequirements(values[13]),
+    clasz: getClass(values[14]),
   );
 }
 
@@ -289,21 +293,79 @@ AdvanceStatsBonus getAdvanceStatsBonus(String values) {
   }
 
   return AdvanceStatsBonus(
-    pierce: advStats[ASB.pierce] ?? emptyValueInt,
-    slash: advStats[ASB.slash] ?? emptyValueInt,
-    crush: advStats[ASB.crush] ?? emptyValueInt,
-    heat: advStats[ASB.heat] ?? emptyValueInt,
-    cold: advStats[ASB.cold] ?? emptyValueInt,
-    magic: advStats[ASB.magic] ?? emptyValueInt,
-    poison: advStats[ASB.poison] ?? emptyValueInt,
-    divine: advStats[ASB.divine] ?? emptyValueInt,
-    chaos: advStats[ASB.chaos] ?? emptyValueInt,
-    truee: advStats[ASB.truee] ?? emptyValueInt,
-    attack: advStats[ASB.attack] ?? emptyValueInt,
-    defence: advStats[ASB.defence] ?? emptyValueInt,
-    health: advStats[ASB.health] ?? emptyValueInt,
-    energy: advStats[ASB.energy] ?? emptyValueInt,
-    fishingResist: advStats[ASB.fishing] ?? emptyValueInt,
-    concentration: advStats[ASB.concentration] ?? emptyValueInt,
-  );
+      pierce: advStats[ASB.pierce] ?? emptyValueInt,
+      slash: advStats[ASB.slash] ?? emptyValueInt,
+      crush: advStats[ASB.crush] ?? emptyValueInt,
+      heat: advStats[ASB.heat] ?? emptyValueInt,
+      cold: advStats[ASB.cold] ?? emptyValueInt,
+      magic: advStats[ASB.magic] ?? emptyValueInt,
+      poison: advStats[ASB.poison] ?? emptyValueInt,
+      divine: advStats[ASB.divine] ?? emptyValueInt,
+      chaos: advStats[ASB.chaos] ?? emptyValueInt,
+      truee: advStats[ASB.truee] ?? emptyValueInt,
+      attack: advStats[ASB.attack] ?? emptyValueInt,
+      defence: advStats[ASB.defence] ?? emptyValueInt,
+      health: advStats[ASB.health] ?? emptyValueInt,
+      energy: advStats[ASB.energy] ?? emptyValueInt,
+      fishingResist: advStats[ASB.fishing] ?? emptyValueInt,
+      concentration: advStats[ASB.concentration] ?? emptyValueInt);
+}
+
+enum Req {
+  strength,
+  dexterity,
+  focus,
+  vitality,
+  maleOnly,
+  level,
+}
+
+Requirements getRequirements(String values) {
+  final valuesMultiple = values.split(separatorMultiValues);
+  final reqs = <Req, int>{};
+  for (final val in valuesMultiple) {
+    final vals = val.split(separatorKeyValue);
+    _setMapReq(vals, reqs);
+  }
+
+  return Requirements(
+      strength: reqs[Req.strength] ?? emptyValueInt,
+      dexterity: reqs[Req.dexterity] ?? emptyValueInt,
+      focus: reqs[Req.focus] ?? emptyValueInt,
+      vitality: reqs[Req.vitality] ?? emptyValueInt,
+      maleOnly: reqs[Req.maleOnly] == 1 ? true : false,
+      level: reqs[Req.level] ?? emptyValueInt);
+}
+
+void _setMapReq(List<String> vals, Map<Req, int> reqs) {
+  switch (vals[0]) {
+    case '0':
+      reqs[Req.strength] = parseInt(vals[1]);
+      break;
+    case '1':
+      reqs[Req.dexterity] = parseInt(vals[1]);
+      break;
+    case '2':
+      reqs[Req.focus] = parseInt(vals[1]);
+      break;
+    case '3':
+      reqs[Req.vitality] = parseInt(vals[1]);
+      break;
+    case '4':
+      reqs[Req.focus] = parseInt(vals[1]);
+      break;
+    case '5':
+      reqs[Req.level] = parseInt(vals[1]);
+      break;
+  }
+}
+
+Class getClass(String value) {
+  return switch (value) {
+    '1' => Class.warrior,
+    '2' => Class.druid,
+    '3' => Class.mage,
+    '4' => Class.ranger,
+    _ => Class.rogue,
+  };
 }
