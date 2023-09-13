@@ -11,6 +11,19 @@ String numFormatter(dynamic number) {
   return NumberFormat.decimalPattern().format(number);
 }
 
+List<Widget> createSection(String header, Map<String, String> data,
+    {bool showAll = false}) {
+  final list = <Widget>[];
+  final columnData = createData(data, showAll: showAll);
+  if (columnData.children.isNotEmpty) {
+    list.add(createHeader(header));
+    list.add(columnData);
+    list.add(const Divider(thickness: dividerThickness));
+  }
+
+  return list;
+}
+
 Widget createHeader(String text) {
   return Text(
     text,
@@ -21,18 +34,20 @@ Widget createHeader(String text) {
   );
 }
 
-Widget createData(Map<String, String> data) {
+Column createData(Map<String, String> data, {bool showAll = false}) {
   final List<Widget> children = [];
   data.forEach((key, value) {
-    children.add(Wrap(
-      spacing: widthSB,
-      children: [
-        key.isNotEmpty
-            ? Text('$key:', style: textStyleField)
-            : const SizedBox(),
-        Text(value),
-      ],
-    ));
+    if (showAll || !emptyValues.contains(value)) {
+      children.add(Wrap(
+        spacing: widthSB,
+        children: [
+          key.isNotEmpty
+              ? Text('$key:', style: textStyleField)
+              : const SizedBox(),
+          Text(value),
+        ],
+      ));
+    }
   });
 
   return Column(

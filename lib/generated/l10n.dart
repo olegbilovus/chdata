@@ -110,6 +110,26 @@ class S {
     );
   }
 
+  /// `Show all the stats`
+  String get data_showAll {
+    return Intl.message(
+      'Show all the stats',
+      name: 'data_showAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show only non empty stats`
+  String get data_not_showAll {
+    return Intl.message(
+      'Show only non empty stats',
+      name: 'data_not_showAll',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Level`
   String get mob_level {
     return Intl.message(
@@ -405,6 +425,16 @@ class S {
     return Intl.message(
       'Fishing damage',
       name: 'mob_fishingDamage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evasion`
+  String get mob_evasion {
+    return Intl.message(
+      'Evasion',
+      name: 'mob_evasion',
       desc: '',
       args: [],
     );

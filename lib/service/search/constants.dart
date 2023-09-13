@@ -41,3 +41,4 @@ final assetsBoxes = <String, List<Function(bool ovverride)>>{
 const searchPatternField = 'searchPattern';
 const searchContainsField = 'searchContains';
 const databaseField = 'database';
+const showAllField = 'showAll';

@@ -23,6 +23,10 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_title": MessageLookupByLibrary.simpleMessage("CH DATA"),
+        "data_not_showAll":
+            MessageLookupByLibrary.simpleMessage("Show only non empty stats"),
+        "data_showAll":
+            MessageLookupByLibrary.simpleMessage("Show all the stats"),
         "dialog_loading": MessageLookupByLibrary.simpleMessage("Loading"),
         "item_armor": MessageLookupByLibrary.simpleMessage("Armor"),
         "item_attackSpeed":
@@ -61,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mob_defence": MessageLookupByLibrary.simpleMessage("Defence"),
         "mob_divine": MessageLookupByLibrary.simpleMessage("Divine"),
         "mob_energy": MessageLookupByLibrary.simpleMessage("Energy"),
+        "mob_evasion": MessageLookupByLibrary.simpleMessage("Evasion"),
         "mob_fishing": MessageLookupByLibrary.simpleMessage("Fishing"),
         "mob_fishingDamage":
             MessageLookupByLibrary.simpleMessage("Fishing damage"),
