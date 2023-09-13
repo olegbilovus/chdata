@@ -156,10 +156,10 @@ class _SearchViewState extends State<SearchView> {
     );
   }
 
-  void _refresh(BuildContext context, String pattern) async {
-    await SearchBloc.prefs.setString(databaseField, _database);
-    await SearchBloc.prefs.setString(searchPatternField, _pattern);
-    await SearchBloc.prefs.setBool(searchContainsField, _contains);
+  void _refresh(BuildContext context, String pattern) {
+    SearchBloc.prefs.setString(databaseField, _database);
+    SearchBloc.prefs.setString(searchPatternField, _pattern);
+    SearchBloc.prefs.setBool(searchContainsField, _contains);
     switch (_database) {
       case mobListField:
         context.read<SearchBloc>().add(SearchEventSearch<Mob>(

@@ -22,7 +22,6 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
       HiveProvider.calledInit = false;
       await provider.init();
-      emit(const SearchStateLoading());
       final database = prefs.getString(databaseField) ?? mobListField;
       final key = prefs.getString(searchPatternField) ?? '';
       final contains = prefs.getBool(searchContainsField) ?? false;

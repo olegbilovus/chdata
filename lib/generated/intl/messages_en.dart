@@ -23,7 +23,36 @@ class MessageLookup extends MessageLookupByLibrary {
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
         "app_title": MessageLookupByLibrary.simpleMessage("CH DATA"),
+        "data_not_showAll":
+            MessageLookupByLibrary.simpleMessage("Show only non empty stats"),
+        "data_showAll":
+            MessageLookupByLibrary.simpleMessage("Show all the stats"),
         "dialog_loading": MessageLookupByLibrary.simpleMessage("Loading"),
+        "item_armor": MessageLookupByLibrary.simpleMessage("Armor"),
+        "item_attackSpeed":
+            MessageLookupByLibrary.simpleMessage("Attack speed"),
+        "item_baseStats": MessageLookupByLibrary.simpleMessage("Base stats"),
+        "item_bonus": MessageLookupByLibrary.simpleMessage("Bonus"),
+        "item_buy": MessageLookupByLibrary.simpleMessage("Buy"),
+        "item_class": MessageLookupByLibrary.simpleMessage("Class"),
+        "item_cooking": MessageLookupByLibrary.simpleMessage("Cooking"),
+        "item_description": MessageLookupByLibrary.simpleMessage("Description"),
+        "item_dexterity": MessageLookupByLibrary.simpleMessage("Dexterity"),
+        "item_fishingConcentration":
+            MessageLookupByLibrary.simpleMessage("Fishing concentration"),
+        "item_fishingResist":
+            MessageLookupByLibrary.simpleMessage("Fishing resist"),
+        "item_focus": MessageLookupByLibrary.simpleMessage("Focus"),
+        "item_maleOnly": MessageLookupByLibrary.simpleMessage("Male only"),
+        "item_noTrade": MessageLookupByLibrary.simpleMessage("No trade"),
+        "item_requirement": MessageLookupByLibrary.simpleMessage("Requirement"),
+        "item_sell": MessageLookupByLibrary.simpleMessage("Sell"),
+        "item_slot": MessageLookupByLibrary.simpleMessage("Slot"),
+        "item_stackable": MessageLookupByLibrary.simpleMessage("Stackable"),
+        "item_strength": MessageLookupByLibrary.simpleMessage("Strength"),
+        "item_subType": MessageLookupByLibrary.simpleMessage("Sub type"),
+        "item_vitality": MessageLookupByLibrary.simpleMessage("Vitality"),
+        "item_weight": MessageLookupByLibrary.simpleMessage("Weight"),
         "mob_AttackRange": MessageLookupByLibrary.simpleMessage("Attack range"),
         "mob_aggroRange": MessageLookupByLibrary.simpleMessage("Aggro range"),
         "mob_attack": MessageLookupByLibrary.simpleMessage("Attack"),
@@ -36,6 +65,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "mob_defence": MessageLookupByLibrary.simpleMessage("Defence"),
         "mob_divine": MessageLookupByLibrary.simpleMessage("Divine"),
         "mob_energy": MessageLookupByLibrary.simpleMessage("Energy"),
+        "mob_evasion": MessageLookupByLibrary.simpleMessage("Evasion"),
         "mob_fishing": MessageLookupByLibrary.simpleMessage("Fishing"),
         "mob_fishingDamage":
             MessageLookupByLibrary.simpleMessage("Fishing damage"),

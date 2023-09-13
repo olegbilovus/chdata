@@ -85,7 +85,7 @@ class Mob {
   @HiveField(25)
   final int mentalEvade;
 
-  Mob(
+  const Mob(
       {required this.id,
       required this.name,
       required this.range,
