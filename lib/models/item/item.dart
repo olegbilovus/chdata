@@ -2,64 +2,28 @@ import 'package:chdata/models/advance_stats.dart';
 import 'package:chdata/models/item/enum/class.dart';
 import 'package:chdata/models/item/enum/subtype.dart';
 import 'package:chdata/models/item/requirements.dart';
-import 'package:hive/hive.dart';
+import 'package:chdata/models/model.dart';
 
 import 'advance_stats_bonus.dart';
 import 'enum/equipment_slot.dart';
 
-part 'item.g.dart';
-
-@HiveType(typeId: 2)
-class Item {
-  @HiveField(0)
+class Item implements Model {
   final int id;
-
-  @HiveField(1)
   final String name;
-
-  @HiveField(2)
   final String description;
-
-  @HiveField(3)
   final bool stackable;
-
-  @HiveField(4)
   final int armor;
-
-  @HiveField(5)
   final EquipmentSlot equipmentSlot;
-
-  @HiveField(6)
   final int buy;
-
-  @HiveField(7)
   final int sell;
-
-  @HiveField(8)
   final int weight;
-
-  @HiveField(9)
   final int attackSpeed;
-
-  @HiveField(10)
   final SubType subType;
-
-  @HiveField(11)
   final bool noTrade;
-
-  @HiveField(12)
   final AdvanceStats damage;
-
-  @HiveField(13)
   final int fishingDamage;
-
-  @HiveField(14)
   final AdvanceStatsBonus bonusStats;
-
-  @HiveField(15)
   final Requirements requirements;
-
-  @HiveField(16)
   final Class clasz;
 
   const Item(
@@ -80,4 +44,69 @@ class Item {
       required this.bonusStats,
       required this.requirements,
       required this.clasz});
+
+  factory Item.fromJson(Map<String, dynamic> json) {
+    final advanceStatsDamage = AdvanceStats.fromJson(json[itemDamageField]);
+    final advanceStatsBonus = AdvanceStatsBonus.fromJson(json[itemDamageField]);
+    final reqs = Requirements.fromJson(json[itemRequirementsField]);
+
+    return Item(
+        id: json[itemIdField] as int,
+        name: json[itemNameField] as String,
+        description: json[itemDescriptionField] as String,
+        stackable: json[itemStackableField] as bool,
+        armor: json[itemArmorField] as int,
+        equipmentSlot:
+            EquipmentSlot.values.byName(json[itemEquipmentSlotField]),
+        buy: json[itemBuyField] as int,
+        sell: json[itemSellField] as int,
+        weight: json[itemWeightField] as int,
+        attackSpeed: json[itemAttackSpeedField] as int,
+        subType: SubType.values.byName(json[itemSubTypeField]),
+        noTrade: json[itemNoTradeField] as bool,
+        damage: advanceStatsDamage,
+        fishingDamage: json[itemFishingDamageField] as int,
+        bonusStats: advanceStatsBonus,
+        requirements: reqs,
+        clasz: Class.values.byName(json[itemClaszField]));
+  }
+
+  @override
+  Map<String, dynamic> toJson() => {
+        itemIdField: id,
+        itemNameField: name,
+        itemDescriptionField: description,
+        itemStackableField: stackable,
+        itemArmorField: armor,
+        itemEquipmentSlotField: equipmentSlot.name,
+        itemBuyField: buy,
+        itemSellField: sell,
+        itemWeightField: weight,
+        itemAttackSpeedField: attackSpeed,
+        itemSubTypeField: subType.name,
+        itemNoTradeField: noTrade,
+        itemDamageField: damage.toJson(),
+        itemFishingDamageField: fishingDamage,
+        itemBonusStatsField: bonusStats.toJson(),
+        itemRequirementsField: requirements.toJson(),
+        itemClaszField: clasz.name
+      };
 }
+
+const itemIdField = 'id';
+const itemNameField = 'name';
+const itemDescriptionField = 'description';
+const itemStackableField = 'stackable';
+const itemArmorField = 'armor';
+const itemEquipmentSlotField = 'equipmentSlot';
+const itemBuyField = 'buy';
+const itemSellField = 'sell';
+const itemWeightField = 'weight';
+const itemAttackSpeedField = 'attackSpeed';
+const itemSubTypeField = 'subType';
+const itemNoTradeField = 'noTrade';
+const itemDamageField = 'damage';
+const itemFishingDamageField = 'fishingDamage';
+const itemBonusStatsField = 'bonusStats';
+const itemRequirementsField = 'requirements';
+const itemClaszField = 'clasz';

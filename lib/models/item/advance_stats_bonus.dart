@@ -1,21 +1,11 @@
 import 'package:chdata/models/advance_stats.dart';
-import 'package:hive/hive.dart';
 
-part 'advance_stats_bonus.g.dart';
-
-@HiveType(typeId: 6)
 class AdvanceStatsBonus extends AdvanceStats {
-  @HiveField(10)
   final int attack;
-  @HiveField(11)
   final int defence;
-  @HiveField(12)
   final int health;
-  @HiveField(13)
   final int energy;
-  @HiveField(14)
   final int fishingResist;
-  @HiveField(15)
   final int concentration;
 
   const AdvanceStatsBonus(
@@ -35,4 +25,48 @@ class AdvanceStatsBonus extends AdvanceStats {
       required this.energy,
       required this.fishingResist,
       required this.concentration});
+
+  @override
+  factory AdvanceStatsBonus.fromJson(Map<String, dynamic> json) {
+    final advanceStats = AdvanceStats.fromJson(json);
+
+    return AdvanceStatsBonus(
+        pierce: advanceStats.pierce,
+        slash: advanceStats.slash,
+        crush: advanceStats.crush,
+        heat: advanceStats.heat,
+        cold: advanceStats.cold,
+        magic: advanceStats.magic,
+        poison: advanceStats.poison,
+        divine: advanceStats.divine,
+        chaos: advanceStats.chaos,
+        truee: advanceStats.truee,
+        attack: json[advanceStatsBonusAttackField] as int,
+        defence: json[advanceStatsBonusDefenceField] as int,
+        health: json[advanceStatsBonusHealthField] as int,
+        energy: json[advanceStatsBonusEnergyField] as int,
+        fishingResist: json[advanceStatsBonusFishingResistField] as int,
+        concentration: json[advanceStatsBonusConcentrationField] as int);
+  }
+
+  @override
+  Map<String, dynamic> toJson() {
+    final json = <String, dynamic>{
+      advanceStatsBonusAttackField: attack,
+      advanceStatsBonusDefenceField: defence,
+      advanceStatsBonusHealthField: health,
+      advanceStatsBonusEnergyField: energy,
+      advanceStatsBonusFishingResistField: fishingResist,
+      advanceStatsBonusConcentrationField: concentration
+    };
+    json.addAll(super.toJson());
+    return json;
+  }
 }
+
+const advanceStatsBonusAttackField = 'attack';
+const advanceStatsBonusDefenceField = 'defence';
+const advanceStatsBonusHealthField = 'health';
+const advanceStatsBonusEnergyField = 'energy';
+const advanceStatsBonusFishingResistField = 'fishingResist';
+const advanceStatsBonusConcentrationField = 'concentration';

@@ -1,37 +1,13 @@
-import 'package:hive/hive.dart';
-
-part 'advance_stats.g.dart';
-
-@HiveType(typeId: 5)
 class AdvanceStats {
-  @HiveField(0)
   final int pierce;
-
-  @HiveField(1)
   final int slash;
-
-  @HiveField(2)
   final int crush;
-
-  @HiveField(3)
   final int heat;
-
-  @HiveField(4)
   final int cold;
-
-  @HiveField(5)
   final int magic;
-
-  @HiveField(6)
   final int poison;
-
-  @HiveField(7)
   final int divine;
-
-  @HiveField(8)
   final int chaos;
-
-  @HiveField(9)
   final int truee;
 
   const AdvanceStats(
@@ -45,4 +21,40 @@ class AdvanceStats {
       required this.divine,
       required this.chaos,
       required this.truee});
+
+  AdvanceStats.fromJson(Map<String, dynamic> json)
+      : pierce = json[advanceStatsPierce] as int,
+        slash = json[advanceStatsSlash] as int,
+        crush = json[advanceStatsCrush] as int,
+        heat = json[advanceStatsHeat] as int,
+        cold = json[advanceStatsCold] as int,
+        magic = json[advanceStatsMagic] as int,
+        poison = json[advanceStatsPoison] as int,
+        divine = json[advanceStatsDivine] as int,
+        chaos = json[advanceStatsChaos] as int,
+        truee = json[advanceStatsTruee] as int;
+
+  Map<String, dynamic> toJson() => {
+        advanceStatsPierce: pierce,
+        advanceStatsSlash: slash,
+        advanceStatsCrush: crush,
+        advanceStatsHeat: heat,
+        advanceStatsCold: cold,
+        advanceStatsMagic: magic,
+        advanceStatsPoison: poison,
+        advanceStatsDivine: divine,
+        advanceStatsChaos: chaos,
+        advanceStatsTruee: truee,
+      };
 }
+
+const advanceStatsPierce = 'pierce';
+const advanceStatsSlash = 'slash';
+const advanceStatsCrush = 'crush';
+const advanceStatsHeat = 'heat';
+const advanceStatsCold = 'cold';
+const advanceStatsMagic = 'magic';
+const advanceStatsPoison = 'poison';
+const advanceStatsDivine = 'divine';
+const advanceStatsChaos = 'chaos';
+const advanceStatsTruee = 'truee';

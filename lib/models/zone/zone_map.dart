@@ -1,16 +1,26 @@
-import 'package:hive/hive.dart';
+import 'package:chdata/models/model.dart';
 
-part 'zone_map.g.dart';
-
-@HiveType(typeId: 9)
-class ZoneMap {
-  @HiveField(0)
+class ZoneMap implements Model {
   final int id;
-  @HiveField(1)
   final String name;
-  @HiveField(2)
   final String assetName;
 
   const ZoneMap(
       {required this.id, required this.name, required this.assetName});
+
+  ZoneMap.fromJson(Map<String, dynamic> json)
+      : id = json[zoneMapIdField] as int,
+        name = json[zoneMapNameField] as String,
+        assetName = json[zoneMapAssetNameField] as String;
+
+  @override
+  Map<String, dynamic> toJson() => {
+        zoneMapIdField: id,
+        zoneMapNameField: name,
+        zoneMapAssetNameField: assetName
+      };
 }
+
+const zoneMapIdField = 'id';
+const zoneMapNameField = 'name';
+const zoneMapAssetNameField = 'assetName';

@@ -1,20 +1,9 @@
-import 'package:hive/hive.dart';
-
-part 'requirements.g.dart';
-
-@HiveType(typeId: 7)
 class Requirements {
-  @HiveField(0)
   final int strength;
-  @HiveField(1)
   final int dexterity;
-  @HiveField(2)
   final int focus;
-  @HiveField(3)
   final int vitality;
-  @HiveField(4)
   final bool maleOnly;
-  @HiveField(5)
   final int level;
 
   const Requirements(
@@ -24,4 +13,28 @@ class Requirements {
       required this.vitality,
       required this.maleOnly,
       required this.level});
+
+  Requirements.fromJson(Map<String, dynamic> json)
+      : strength = json[requirementsStrengthField] as int,
+        dexterity = json[requirementsDexterityField] as int,
+        focus = json[requirementsFocusField] as int,
+        vitality = json[requirementsVitalityField] as int,
+        maleOnly = json[requirementsMaleOnlyField] as bool,
+        level = json[requirementsLevelField] as int;
+
+  Map<String, dynamic> toJson() => {
+        requirementsStrengthField: strength,
+        requirementsDexterityField: dexterity,
+        requirementsFocusField: focus,
+        requirementsVitalityField: vitality,
+        requirementsMaleOnlyField: maleOnly,
+        requirementsLevelField: level,
+      };
 }
+
+const requirementsStrengthField = 'strength';
+const requirementsDexterityField = 'dexterity';
+const requirementsFocusField = 'focus';
+const requirementsVitalityField = 'vitality';
+const requirementsMaleOnlyField = 'maleOnly';
+const requirementsLevelField = 'level';
