@@ -1,8 +1,12 @@
-import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+
+import 'constants.dart';
 
 @immutable
 abstract class SearchEvent {
-  const SearchEvent();
+  final Back back;
+
+  const SearchEvent({this.back = doNothing});
 }
 
 class SearchEventInit extends SearchEvent {
@@ -22,5 +26,6 @@ class SearchEventShowData<T> extends SearchEvent {
   final String key;
   final String database;
 
-  const SearchEventShowData({required this.key, required this.database});
+  const SearchEventShowData(
+      {required this.key, required this.database, super.back});
 }

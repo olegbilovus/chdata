@@ -12,6 +12,8 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../service/search/bloc/constants.dart';
+
 class MobView extends StatefulWidget {
   const MobView({super.key});
 
@@ -37,7 +39,7 @@ class _MobViewState extends State<MobView> {
         dev.log('MobView: ${data.key}');
         return WillPopScope(
           onWillPop: () {
-            _back(context);
+            state.back(context);
             return Future.value(false);
           },
           child: Scaffold(
@@ -45,7 +47,7 @@ class _MobViewState extends State<MobView> {
               title: Text(data.data!.name),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed: () => _back(context),
+                onPressed: () => state.back(context),
               ),
               actions: [
                 Checkbox(
@@ -59,7 +61,7 @@ class _MobViewState extends State<MobView> {
                     setState(() {
                       _showAll = value!;
                     });
-                    _refresh(context, data.key);
+                    _refresh(context, data.key, state.back);
                   },
                 ),
               ],
@@ -78,18 +80,11 @@ class _MobViewState extends State<MobView> {
     );
   }
 
-  void _back(BuildContext context) {
-    context.read<SearchBloc>().add(SearchEventSearch(
-        key: SearchBloc.prefs.getString(searchPatternField) ?? '',
-        database: mobListField,
-        contains: SearchBloc.prefs.getBool(searchContainsField) ?? false));
-  }
-
-  void _refresh(BuildContext context, String key) {
+  void _refresh(BuildContext context, String key, Back back) {
     SearchBloc.prefs.setBool(showAllField, _showAll);
     context
         .read<SearchBloc>()
-        .add(SearchEventShowData(key: key, database: mobListField));
+        .add(SearchEventShowData(key: key, database: mobListField, back: back));
   }
 
   List<Widget> _createColumnChildren(Mob data) {
