@@ -1,7 +1,9 @@
 import 'package:chdata/models/model.dart';
 
 class ZoneMap implements Model {
+  @override
   final int id;
+  @override
   final String name;
   final String assetName;
 
@@ -12,6 +14,9 @@ class ZoneMap implements Model {
       : id = json[zoneMapIdField] as int,
         name = json[zoneMapNameField] as String,
         assetName = json[zoneMapAssetNameField] as String;
+
+  @override
+  ZoneMap fromJson(Map<String, dynamic> json) => ZoneMap.fromJson(json);
 
   @override
   Map<String, dynamic> toJson() => {

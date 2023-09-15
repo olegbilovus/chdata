@@ -1,11 +1,12 @@
 import 'package:chdata/models/advance_stats.dart';
+import 'package:chdata/models/model.dart';
 
 import 'enum/mob_opinion.dart';
 
-import 'package:chdata/models/model.dart';
-
 class Mob implements Model {
+  @override
   final int id;
+  @override
   final String name;
   final double range;
   final int followRange;
@@ -32,33 +33,32 @@ class Mob implements Model {
   final int weakEvade;
   final int mentalEvade;
 
-  const Mob(
-      {required this.id,
-      required this.name,
-      required this.range,
-      required this.followRange,
-      required this.opinion,
-      required this.level,
-      required this.health,
-      required this.goldMin,
-      required this.goldMax,
-      required this.attack,
-      required this.defence,
-      required this.attackSpeed,
-      required this.energy,
-      required this.damage,
-      required this.fishingDamage,
-      required this.resist,
-      required this.stars,
-      required this.attackRange,
-      required this.missileSpeed,
-      required this.xp,
-      required this.physicalEvade,
-      required this.spellEvade,
-      required this.moveEvade,
-      required this.woundEvade,
-      required this.weakEvade,
-      required this.mentalEvade});
+  const Mob({required this.id,
+    required this.name,
+    required this.range,
+    required this.followRange,
+    required this.opinion,
+    required this.level,
+    required this.health,
+    required this.goldMin,
+    required this.goldMax,
+    required this.attack,
+    required this.defence,
+    required this.attackSpeed,
+    required this.energy,
+    required this.damage,
+    required this.fishingDamage,
+    required this.resist,
+    required this.stars,
+    required this.attackRange,
+    required this.missileSpeed,
+    required this.xp,
+    required this.physicalEvade,
+    required this.spellEvade,
+    required this.moveEvade,
+    required this.woundEvade,
+    required this.weakEvade,
+    required this.mentalEvade});
 
   Mob.fromJson(Map<String, dynamic> json)
       : id = json[mobIdField] as int,
@@ -87,6 +87,9 @@ class Mob implements Model {
         woundEvade = json[mobWoundEvadeField] as int,
         weakEvade = json[mobWeakEvadeField] as int,
         mentalEvade = json[mobMentalEvadeField] as int;
+
+  @override
+  Mob fromJson(Map<String, dynamic> json) => Mob.fromJson(json);
 
   @override
   Map<String, dynamic> toJson() => {

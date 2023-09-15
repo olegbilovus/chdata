@@ -4,4 +4,6 @@ abstract class Model {
   String get name;
 
   Map<String, dynamic> toJson();
+
+  Model fromJson(Map<String, dynamic> json);
 }

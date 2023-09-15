@@ -1,13 +1,13 @@
-import 'package:chdata/models/zone/zone_map.dart';
 import 'package:chdata/scripts/json/utility.dart';
 
+import '../../models/zone_map/zone_map.dart';
 import '../../service/search/constants.dart';
 import 'constants_hidden.dart';
 
 void main() async {
   processAndSaveData(
       filePath: zoneFilePath,
-      listField: zoneListField,
+      listField: zoneMapListField,
       parseValues: _parseValues);
 }
 

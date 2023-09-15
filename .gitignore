@@ -44,4 +44,4 @@ app.*.map.json
 /android/app/release
 /hive/*.lock
 /test/hive/
-/lib/scripts/json/constants_hidden.dart
+**/constants_hidden.dart

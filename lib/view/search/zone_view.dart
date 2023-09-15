@@ -1,11 +1,11 @@
 import 'dart:developer' as dev;
 
-import 'package:chdata/models/zone/zone_map.dart';
 import 'package:chdata/view/search/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:photo_view/photo_view.dart';
 
+import '../../models/zone_map/zone_map.dart';
 import '../../service/search/bloc/search_bloc.dart';
 import '../../service/search/bloc/search_state.dart';
 

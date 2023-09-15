@@ -8,7 +8,9 @@ import 'advance_stats_bonus.dart';
 import 'enum/equipment_slot.dart';
 
 class Item implements Model {
+  @override
   final int id;
+  @override
   final String name;
   final String description;
   final bool stackable;
@@ -26,28 +28,28 @@ class Item implements Model {
   final Requirements requirements;
   final Class clasz;
 
-  const Item(
-      {required this.id,
-      required this.name,
-      required this.description,
-      required this.stackable,
-      required this.armor,
-      required this.equipmentSlot,
-      required this.buy,
-      required this.sell,
-      required this.weight,
-      required this.attackSpeed,
-      required this.subType,
-      required this.noTrade,
-      required this.damage,
-      required this.fishingDamage,
-      required this.bonusStats,
-      required this.requirements,
-      required this.clasz});
+  const Item({required this.id,
+    required this.name,
+    required this.description,
+    required this.stackable,
+    required this.armor,
+    required this.equipmentSlot,
+    required this.buy,
+    required this.sell,
+    required this.weight,
+    required this.attackSpeed,
+    required this.subType,
+    required this.noTrade,
+    required this.damage,
+    required this.fishingDamage,
+    required this.bonusStats,
+    required this.requirements,
+    required this.clasz});
 
   factory Item.fromJson(Map<String, dynamic> json) {
     final advanceStatsDamage = AdvanceStats.fromJson(json[itemDamageField]);
-    final advanceStatsBonus = AdvanceStatsBonus.fromJson(json[itemDamageField]);
+    final advanceStatsBonus =
+        AdvanceStatsBonus.fromJson(json[itemBonusStatsField]);
     final reqs = Requirements.fromJson(json[itemRequirementsField]);
 
     return Item(
@@ -70,6 +72,9 @@ class Item implements Model {
         requirements: reqs,
         clasz: Class.values.byName(json[itemClaszField]));
   }
+
+  @override
+  Item fromJson(Map<String, dynamic> json) => Item.fromJson(json);
 
   @override
   Map<String, dynamic> toJson() => {

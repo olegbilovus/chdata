@@ -31,7 +31,7 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - assets/hive/
+    - assets/json/
     - assets/images/zones/
 
 flutter_intl:

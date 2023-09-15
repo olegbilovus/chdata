@@ -33,7 +33,7 @@ class _SearchViewState extends State<SearchView> {
   @override
   void initState() {
     final prefDatabase = SearchBloc.prefs.getString(databaseField) ?? '';
-    if (assetsBoxes.keys.contains(prefDatabase)) {
+    if (assets.contains(prefDatabase)) {
       _database = prefDatabase;
     } else {
       _database = mobListField;
@@ -82,7 +82,7 @@ class _SearchViewState extends State<SearchView> {
                   });
                   _refresh(context, _pattern);
                 },
-                dropdownMenuEntries: assetsBoxes.keys
+                dropdownMenuEntries: assets
                     .map<DropdownMenuEntry<String>>(
                         (e) => DropdownMenuEntry<String>(value: e, label: e))
                     .toList(),
