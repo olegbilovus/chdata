@@ -1,0 +1,1 @@
+const hiveAssetsScriptDir = 'assets/hive';

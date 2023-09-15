@@ -8,15 +8,16 @@ import '../../models/mob/constants.dart';
 import '../../models/mob/enum/mob_opinion.dart';
 import '../../models/mob/mob.dart';
 import 'constants.dart';
+import 'constants_hidden.dart';
 
 void main() async {
-  // filePath declared in ./constants.dart which is git ignored to avoid
+  // filePath declared in ./constants_hidden.dart which is git ignored to avoid
   // exporting it
   final data = File(mobFilePath);
 
-  Hive.init(assetsDir);
+  Hive.init(hiveAssetsScriptDir);
   for (final registerAdapter in assetsBoxes[mobListField]!) {
-    registerAdapter(true);
+    registerAdapter();
   }
   final box = await Hive.openBox(mobListField);
   await box.clear();
