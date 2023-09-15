@@ -6,6 +6,7 @@ import 'package:chdata/utilities/alg/binary_search_occurrences.dart';
 import 'package:flutter/services.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
+import 'const_asset_dir.dart';
 import 'constants.dart';
 
 class HiveProvider implements SearchProvider {
@@ -26,7 +27,7 @@ class HiveProvider implements SearchProvider {
       return;
     }
     calledInit = true;
-    await Hive.initFlutter(assetsDir);
+    await Hive.initFlutter(hiveAssetsDir);
   }
 
   @override
@@ -35,7 +36,7 @@ class HiveProvider implements SearchProvider {
       required String key,
       bool contains = false,
       bool retrieve = false}) async {
-    final box = await _loadDatabase(database);
+    final box = await _loadDatabase<T>(database);
     final keys = _boxesKeys[database] ?? [];
     final keyLower = key.toLowerCase();
 
@@ -62,28 +63,28 @@ class HiveProvider implements SearchProvider {
   @override
   Future<SearchData<T>> searchOne<T>(
       {required String database, required String key}) async {
-    final box = await _loadDatabase(database);
+    final box = await _loadDatabase<T>(database);
     final data = box.get(key);
 
-    return SearchData(key: key, data: data);
+    return SearchData<T>(key: key, data: data);
   }
 
-  Future<Box> _loadDatabase(String database) async {
+  Future<Box<T>> _loadDatabase<T>(String database) async {
     if (openedBox[database] ?? false) {
-      return Hive.box(database);
+      return Hive.box<T>(database);
     }
     final adapters = assetsBoxes[database]!.toList();
     for (final registerAdapter in adapters) {
       try {
-        registerAdapter(true);
+        registerAdapter();
       } on HiveError catch (e) {
         dev.log(e.toString());
       }
     }
 
-    final bytesBox = await rootBundle.load('$assetsDir/$database.hive');
+    final bytesBox = await rootBundle.load('$hiveAssetsDir/$database.hive');
     final box =
-        await Hive.openBox(database, bytes: bytesBox.buffer.asUint8List());
+        await Hive.openBox<T>(database, bytes: bytesBox.buffer.asUint8List());
     _boxesKeys[database] = box.keys.map((e) => e.toString()).toList();
     openedBox[database] = true;
 

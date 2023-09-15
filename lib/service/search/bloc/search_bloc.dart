@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:chdata/models/mob/mob.dart';
+import 'package:chdata/models/zone/zone_map.dart';
 import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
 import 'package:chdata/service/search/constants.dart';
@@ -8,11 +8,14 @@ import 'package:chdata/service/search/search_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../models/item/item.dart';
+import '../../../models/mob/mob.dart';
+import 'constants.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   static late final SharedPreferences prefs;
+  final SearchProvider provider;
 
-  SearchBloc(SearchProvider provider) : super(const SearchStateNotInit()) {
+  SearchBloc(this.provider) : super(const SearchStateNotInit()) {
     on<SearchEventInit>((event, emit) async {
       try {
         prefs = await SharedPreferences.getInstance();
@@ -26,17 +29,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final key = prefs.getString(searchPatternField) ?? '';
       final contains = prefs.getBool(searchContainsField) ?? false;
       switch (database) {
-        case itemListField:
-          final allResults = await provider.search<Item>(
-              database: database, key: key, contains: contains);
-          emit(SearchStateSearching<Item>(
-              results: allResults, database: database));
+        case mobListField:
+          emit(await _searchStateSearching<Mob>(database, key, contains));
           break;
-        default:
-          final allResults = await provider.search<Mob>(
-              database: mobListField, key: key, contains: contains);
-          emit(SearchStateSearching<Mob>(
-              results: allResults, database: mobListField));
+        case itemListField:
+          emit(await _searchStateSearching<Item>(database, key, contains));
+          break;
+        case zoneListField:
+          emit(await _searchStateSearching<ZoneMap>(database, key, contains));
           break;
       }
     });
@@ -48,14 +48,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final contains = event.contains;
       switch (database) {
         case mobListField:
-          final results = await provider.search<Mob>(
-              database: database, key: key, contains: contains);
-          emit(SearchStateSearching<Mob>(results: results, database: database));
+          emit(await _searchStateSearching<Mob>(database, key, contains));
+          break;
         case itemListField:
-          final results = await provider.search<Item>(
-              database: database, key: key, contains: contains);
-          emit(
-              SearchStateSearching<Item>(results: results, database: database));
+          emit(await _searchStateSearching<Item>(database, key, contains));
+          break;
+        case zoneListField:
+          emit(await _searchStateSearching<ZoneMap>(database, key, contains));
+          break;
       }
     });
 
@@ -65,16 +65,30 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final key = event.key;
       switch (database) {
         case mobListField:
-          final result =
-              await provider.searchOne<Mob>(database: database, key: key);
-          emit(SearchStateShowingData<Mob>(
-              database: database, data: result, back: event.back));
+          emit(await _searchStateShowingData<Mob>(database, key, event.back));
+          break;
         case itemListField:
-          final result =
-              await provider.searchOne<Item>(database: database, key: key);
-          emit(SearchStateShowingData<Item>(
-              database: database, data: result, back: event.back));
+          emit(await _searchStateShowingData<Item>(database, key, event.back));
+          break;
+        case zoneListField:
+          emit(await _searchStateShowingData<ZoneMap>(
+              database, key, event.back));
+          break;
       }
     });
+  }
+
+  Future<SearchStateSearching<T>> _searchStateSearching<T>(
+      String database, String key, bool contains) async {
+    final results = await provider.search<T>(
+        database: database, key: key, contains: contains);
+    return SearchStateSearching<T>(results: results, database: database);
+  }
+
+  Future<SearchStateShowingData<T>> _searchStateShowingData<T>(
+      String database, String key, Back back) async {
+    final result = await provider.searchOne<T>(database: database, key: key);
+    return SearchStateShowingData<T>(
+        database: database, data: result, back: back);
   }
 }

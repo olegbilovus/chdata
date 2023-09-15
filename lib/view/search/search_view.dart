@@ -3,7 +3,6 @@ import 'dart:developer' as dev;
 
 import 'package:chdata/extensions/buildcontext/loc.dart';
 import 'package:chdata/extensions/buildcontext/snackbar.dart';
-import 'package:chdata/models/mob/mob.dart';
 import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
 import 'package:chdata/service/search/constants.dart';
@@ -11,7 +10,6 @@ import 'package:chdata/service/search/search_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../models/item/item.dart';
 import '../../service/search/bloc/search_bloc.dart';
 import 'data_list_view.dart';
 
@@ -160,15 +158,7 @@ class _SearchViewState extends State<SearchView> {
     SearchBloc.prefs.setString(databaseField, _database);
     SearchBloc.prefs.setString(searchPatternField, _pattern);
     SearchBloc.prefs.setBool(searchContainsField, _contains);
-    switch (_database) {
-      case mobListField:
-        context.read<SearchBloc>().add(SearchEventSearch<Mob>(
-            key: pattern, contains: _contains, database: mobListField));
-        break;
-      case itemListField:
-        context.read<SearchBloc>().add(SearchEventSearch<Item>(
-            key: pattern, contains: _contains, database: itemListField));
-        break;
-    }
+    context.read<SearchBloc>().add(SearchEventSearch(
+        key: pattern, contains: _contains, database: _database));
   }
 }

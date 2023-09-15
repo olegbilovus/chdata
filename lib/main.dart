@@ -9,6 +9,7 @@ import 'package:chdata/view/loading/loading_view.dart';
 import 'package:chdata/view/search/item_view.dart';
 import 'package:chdata/view/search/mob_view.dart';
 import 'package:chdata/view/search/search_view.dart';
+import 'package:chdata/view/search/zone_view.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -48,6 +49,10 @@ class HomePage extends StatelessWidget {
               return const MobView();
             case itemListField:
               return const ItemView();
+            case zoneListField:
+              return const ZoneView();
+            default:
+              return const Placeholder();
           }
         }
         return const LoadingView();

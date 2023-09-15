@@ -7,20 +7,21 @@ import 'package:chdata/models/item/enum/class.dart';
 import 'package:chdata/models/item/enum/subtype.dart';
 import 'package:chdata/models/item/item.dart';
 import 'package:chdata/models/item/requirements.dart';
-import 'package:chdata/service/search/constants.dart';
 import 'package:hive/hive.dart';
 
 import '../../models/item/enum/equipment_slot.dart';
+import '../../service/search/constants.dart';
 import 'constants.dart';
+import 'constants_hidden.dart';
 
 void main() async {
-  // filePath declared in ./constants.dart which is git ignored to avoid
+  // filePath declared in ./constants_hidden.dart which is git ignored to avoid
   // exporting it
   final data = File(itemFilePath);
 
-  Hive.init(assetsDir);
+  Hive.init(hiveAssetsScriptDir);
   for (final registerAdapter in assetsBoxes[itemListField]!) {
-    registerAdapter(true);
+    registerAdapter();
   }
   final box = await Hive.openBox(itemListField);
   await box.clear();
