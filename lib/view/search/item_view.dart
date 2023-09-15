@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/item/item.dart';
+import '../../service/search/bloc/constants.dart';
 
 class ItemView extends StatefulWidget {
   const ItemView({super.key});
@@ -39,7 +40,7 @@ class _ItemViewState extends State<ItemView> {
         dev.log('ItemView: ${data.key}');
         return WillPopScope(
           onWillPop: () {
-            _back(context);
+            state.back(context);
             return Future.value(false);
           },
           child: Scaffold(
@@ -47,7 +48,7 @@ class _ItemViewState extends State<ItemView> {
               title: Text(data.data!.name),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
-                onPressed: () => _back(context),
+                onPressed: () => state.back(context),
               ),
               actions: [
                 Checkbox(
@@ -61,7 +62,7 @@ class _ItemViewState extends State<ItemView> {
                     setState(() {
                       _showAll = value!;
                     });
-                    _refresh(context, data.key);
+                    _refresh(context, data.key, state.back);
                   },
                 ),
               ],
@@ -80,13 +81,6 @@ class _ItemViewState extends State<ItemView> {
     );
   }
 
-  void _back(BuildContext context) {
-    context.read<SearchBloc>().add(SearchEventSearch(
-        key: SearchBloc.prefs.getString(searchPatternField) ?? '',
-        database: itemListField,
-        contains: SearchBloc.prefs.getBool(searchContainsField) ?? false));
-  }
-
   String _getLvlType(SubType type) {
     return switch (type) {
       SubType.fishingRod ||
@@ -98,11 +92,10 @@ class _ItemViewState extends State<ItemView> {
     };
   }
 
-  void _refresh(BuildContext context, String key) {
+  void _refresh(BuildContext context, String key, Back back) {
     SearchBloc.prefs.setBool(showAllField, _showAll);
-    context
-        .read<SearchBloc>()
-        .add(SearchEventShowData(key: key, database: itemListField));
+    context.read<SearchBloc>().add(
+        SearchEventShowData(key: key, database: itemListField, back: back));
   }
 
   List<Widget> _createColumnChildren(Item data) {

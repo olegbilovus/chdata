@@ -25,12 +25,18 @@ class DataListView extends StatelessWidget {
               softWrap: true,
               overflow: TextOverflow.ellipsis,
             ),
-            onTap: () => context
-                .read<SearchBloc>()
-                .add(SearchEventShowData(key: data.key, database: database)),
+            onTap: () => context.read<SearchBloc>().add(SearchEventShowData(
+                key: data.key, database: database, back: _back)),
           );
         },
       ),
     );
+  }
+
+  void _back(BuildContext context) {
+    context.read<SearchBloc>().add(SearchEventSearch(
+        key: SearchBloc.prefs.getString(searchPatternField) ?? '',
+        database: database,
+        contains: SearchBloc.prefs.getBool(searchContainsField) ?? false));
   }
 }

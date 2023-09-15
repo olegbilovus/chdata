@@ -67,11 +67,13 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         case mobListField:
           final result =
               await provider.searchOne<Mob>(database: database, key: key);
-          emit(SearchStateShowingData<Mob>(database: database, data: result));
+          emit(SearchStateShowingData<Mob>(
+              database: database, data: result, back: event.back));
         case itemListField:
           final result =
               await provider.searchOne<Item>(database: database, key: key);
-          emit(SearchStateShowingData<Item>(database: database, data: result));
+          emit(SearchStateShowingData<Item>(
+              database: database, data: result, back: event.back));
       }
     });
   }
