@@ -8,8 +8,6 @@ import '../../models/mob/mob.dart';
 import 'constants_hidden.dart';
 
 void main() async {
-  // filePath declared in ./constants_hidden.dart which is git ignored to avoid
-  // exporting it
   processAndSaveData(
       filePath: mobFilePath,
       listField: mobListField,

@@ -2,6 +2,8 @@ import 'dart:collection';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:archive/archive.dart';
+
 import '../../service/search/constants.dart';
 import 'constants.dart';
 
@@ -29,6 +31,22 @@ void processAndSaveData(
     map['${model.name}$separator${model.id}'] = model.toJson();
   }
 
+  final compressedString = compress(jsonEncode(map));
+
   final jsonFile = File('$jsonAssetsScriptDir/$listField.json');
-  jsonFile.writeAsStringSync(jsonEncode(map));
+  jsonFile.writeAsStringSync(compressedString);
+}
+
+String compress(String str) {
+  final stringBytes = utf8.encode(str);
+  final gzipBytes = GZipEncoder().encode(stringBytes);
+  final compressedString = base64.encode(gzipBytes!);
+  return compressedString;
+}
+
+String decompress(String str) {
+  final decodeBase64 = base64.decode(str);
+  final decodeGZip = GZipDecoder().decodeBytes(decodeBase64);
+  final decompressedString = utf8.decode(decodeGZip);
+  return decompressedString;
 }
