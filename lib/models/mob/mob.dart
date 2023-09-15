@@ -1,115 +1,150 @@
 import 'package:chdata/models/advance_stats.dart';
-import 'package:hive/hive.dart';
+import 'package:chdata/models/model.dart';
 
 import 'enum/mob_opinion.dart';
 
-part 'mob.g.dart';
-
-@HiveType(typeId: 0)
-class Mob {
-  @HiveField(0)
+class Mob implements Model {
+  @override
   final int id;
-
-  @HiveField(1)
+  @override
   final String name;
-
-  @HiveField(2)
   final double range;
-
-  @HiveField(3)
   final int followRange;
-
-  @HiveField(4)
   final MobOpinion opinion;
-
-  @HiveField(5)
   final int level;
-
-  @HiveField(6)
   final int health;
-
-  @HiveField(7)
   final int goldMin;
-
-  @HiveField(8)
   final int goldMax;
-
-  @HiveField(9)
   final int attack;
-
-  @HiveField(10)
   final int defence;
-
-  @HiveField(11)
   final int attackSpeed;
-
-  @HiveField(12)
   final int energy;
-
-  @HiveField(13)
   final AdvanceStats damage;
-
-  @HiveField(14)
   final int fishingDamage;
-
-  @HiveField(15)
   final AdvanceStats resist;
-
-  @HiveField(16)
   final int stars;
-
-  @HiveField(17)
   final double attackRange;
-
-  @HiveField(18)
   final int missileSpeed;
-
-  @HiveField(19)
   final int xp;
-
-  @HiveField(20)
   final int physicalEvade;
-
-  @HiveField(21)
   final int spellEvade;
-
-  @HiveField(22)
   final int moveEvade;
-
-  @HiveField(23)
   final int woundEvade;
-
-  @HiveField(24)
   final int weakEvade;
-
-  @HiveField(25)
   final int mentalEvade;
 
-  const Mob(
-      {required this.id,
-      required this.name,
-      required this.range,
-      required this.followRange,
-      required this.opinion,
-      required this.level,
-      required this.health,
-      required this.goldMin,
-      required this.goldMax,
-      required this.attack,
-      required this.defence,
-      required this.attackSpeed,
-      required this.energy,
-      required this.damage,
-      required this.fishingDamage,
-      required this.resist,
-      required this.stars,
-      required this.attackRange,
-      required this.missileSpeed,
-      required this.xp,
-      required this.physicalEvade,
-      required this.spellEvade,
-      required this.moveEvade,
-      required this.woundEvade,
-      required this.weakEvade,
-      required this.mentalEvade});
+  const Mob({required this.id,
+    required this.name,
+    required this.range,
+    required this.followRange,
+    required this.opinion,
+    required this.level,
+    required this.health,
+    required this.goldMin,
+    required this.goldMax,
+    required this.attack,
+    required this.defence,
+    required this.attackSpeed,
+    required this.energy,
+    required this.damage,
+    required this.fishingDamage,
+    required this.resist,
+    required this.stars,
+    required this.attackRange,
+    required this.missileSpeed,
+    required this.xp,
+    required this.physicalEvade,
+    required this.spellEvade,
+    required this.moveEvade,
+    required this.woundEvade,
+    required this.weakEvade,
+    required this.mentalEvade});
+
+  Mob.fromJson(Map<String, dynamic> json)
+      : id = json[mobIdField] as int,
+        name = json[mobNameField] as String,
+        range = json[mobRangeField] as double,
+        followRange = json[mobFollowRangeField] as int,
+        opinion = MobOpinion.values.byName(json[mobOpinionField]),
+        level = json[mobLevelField] as int,
+        health = json[mobHealthField] as int,
+        goldMin = json[mobGoldMinField] as int,
+        goldMax = json[mobGoldMaxField] as int,
+        attack = json[mobAttackField] as int,
+        defence = json[mobDefenceField] as int,
+        attackSpeed = json[mobAttackSpeedField] as int,
+        energy = json[mobEnergyField] as int,
+        damage = AdvanceStats.fromJson(json[mobDamageField]),
+        fishingDamage = json[mobFishingDamageField] as int,
+        resist = AdvanceStats.fromJson(json[mobResistField]),
+        stars = json[mobStarsField] as int,
+        attackRange = json[mobAttackRangeField] as double,
+        missileSpeed = json[mobMissileSpeedField] as int,
+        xp = json[mobXpField] as int,
+        physicalEvade = json[mobPhysicalEvadeField] as int,
+        spellEvade = json[mobSpellEvadeField] as int,
+        moveEvade = json[mobMoveEvadeField] as int,
+        woundEvade = json[mobWoundEvadeField] as int,
+        weakEvade = json[mobWeakEvadeField] as int,
+        mentalEvade = json[mobMentalEvadeField] as int;
+
+  @override
+  Mob fromJson(Map<String, dynamic> json) => Mob.fromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => {
+        mobIdField: id,
+        mobNameField: name,
+        mobRangeField: range,
+        mobFollowRangeField: followRange,
+        mobOpinionField: opinion.name,
+        mobLevelField: level,
+        mobHealthField: health,
+        mobGoldMinField: goldMin,
+        mobGoldMaxField: goldMax,
+        mobAttackField: attack,
+        mobDefenceField: defence,
+        mobAttackSpeedField: attackSpeed,
+        mobEnergyField: energy,
+        mobDamageField: damage.toJson(),
+        mobFishingDamageField: fishingDamage,
+        mobResistField: resist.toJson(),
+        mobStarsField: stars,
+        mobAttackRangeField: attackRange,
+        mobMissileSpeedField: missileSpeed,
+        mobXpField: xp,
+        mobPhysicalEvadeField: physicalEvade,
+        mobSpellEvadeField: spellEvade,
+        mobMoveEvadeField: moveEvade,
+        mobWoundEvadeField: woundEvade,
+        mobWeakEvadeField: weakEvade,
+        mobMentalEvadeField: mentalEvade
+      };
 }
+
+const mobIdField = 'id';
+const mobNameField = 'name';
+const mobRangeField = 'range';
+const mobFollowRangeField = 'followRange';
+const mobOpinionField = 'opinion';
+const mobLevelField = 'level';
+const mobHealthField = 'health';
+const mobGoldMinField = 'goldMin';
+const mobGoldMaxField = 'goldMax';
+const mobAttackField = 'attack';
+const mobDefenceField = 'defence';
+const mobAttackSpeedField = 'attackSpeed';
+const mobEnergyField = 'energy';
+const mobDamageField = 'damage';
+const mobFishingDamageField = 'fishingDamage';
+const mobResistField = 'resist';
+const mobStarsField = 'stars';
+const mobAttackRangeField = 'AttackRange';
+const mobMissileSpeedField = 'missileSpeed';
+const mobXpField = 'xp';
+const mobPhysicalEvadeField = 'physicalEvade';
+const mobSpellEvadeField = 'spellEvade';
+const mobMoveEvadeField = 'moveEvade';
+const mobWoundEvadeField = 'woundEvade';
+const mobWeakEvadeField = 'weakEvade';
+const mobMentalEvadeField = 'mentalEvade';

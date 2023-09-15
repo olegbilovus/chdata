@@ -4,7 +4,7 @@ import 'package:chdata/service/search/bloc/search_bloc.dart';
 import 'package:chdata/service/search/bloc/search_event.dart';
 import 'package:chdata/service/search/bloc/search_state.dart';
 import 'package:chdata/service/search/constants.dart';
-import 'package:chdata/service/search/hive_provider.dart';
+import 'package:chdata/service/search/json_provider.dart';
 import 'package:chdata/view/loading/loading_view.dart';
 import 'package:chdata/view/search/item_view.dart';
 import 'package:chdata/view/search/mob_view.dart';
@@ -26,7 +26,7 @@ void main() {
     darkTheme:
         FlexThemeData.dark(scheme: FlexScheme.cyanM3, darkIsTrueBlack: true),
     home: BlocProvider<SearchBloc>(
-        create: (context) => SearchBloc(HiveProvider()),
+        create: (context) => SearchBloc(JsonProvider()),
         child: const HomePage()),
   ));
 }
@@ -49,7 +49,7 @@ class HomePage extends StatelessWidget {
               return const MobView();
             case itemListField:
               return const ItemView();
-            case zoneListField:
+            case zoneMapListField:
               return const ZoneView();
             default:
               return const Placeholder();
