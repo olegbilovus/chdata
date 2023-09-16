@@ -2,13 +2,13 @@ import 'package:chdata/models/advance_stats.dart';
 import 'package:chdata/scripts/json/utility.dart';
 import 'package:chdata/service/search/constants.dart';
 
-import '../../models/mob/constants.dart';
-import '../../models/mob/enum/mob_opinion.dart';
-import '../../models/mob/mob.dart';
-import 'constants_hidden.dart';
+import '../../../models/mob/constants.dart';
+import '../../../models/mob/enum/mob_opinion.dart';
+import '../../../models/mob/mob.dart';
+import '../constants_hidden.dart';
 
 void main() async {
-  processAndSaveData(
+  processData(
       filePath: mobFilePath,
       listField: mobListField,
       parseValues: _parseValues);
@@ -63,7 +63,8 @@ Mob _parseValues(List<String> values) {
       moveEvade: parseInt(values[39]),
       woundEvade: parseInt(values[40]),
       weakEvade: parseInt(values[41]),
-      mentalEvade: parseInt(values[42]));
+      mentalEvade: parseInt(values[42]),
+      spawns: []);
 }
 
 MobOpinion getOpinion(String opinion) {

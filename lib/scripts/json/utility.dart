@@ -7,13 +7,30 @@ import 'package:archive/archive.dart';
 import '../../service/search/constants.dart';
 import 'constants.dart';
 
-void processAndSaveData(
+String processData(
     {required String filePath,
-    required String listField,
-    required ParseValues parseValues}) {
-  final data = File(filePath);
-
+    required ParseValues parseValues,
+    String? listField}) {
   final map = SplayTreeMap<String, Map<String, dynamic>>();
+  final listValues = getValues(filePath);
+
+  for (final values in listValues) {
+    final model = parseValues(values);
+    map['${model.name}$separator${model.id}'] = model.toJson();
+  }
+
+  final compressedString = compress(jsonEncode(map));
+
+  if (listField != null) {
+    final jsonFile = File('$jsonAssetsScriptDir/$listField.json');
+    jsonFile.writeAsStringSync(compressedString);
+  }
+  return compressedString;
+}
+
+List<List<String>> getValues(String filePath) {
+  final data = File(filePath);
+  final list = <List<String>>[];
 
   final modelStr = data.readAsLinesSync().map((e) => e.trim()).toList();
   for (final modelStr in modelStr) {
@@ -27,14 +44,10 @@ void processAndSaveData(
       }
       return str.trim();
     }).toList();
-    final model = parseValues(values);
-    map['${model.name}$separator${model.id}'] = model.toJson();
+    list.add(values);
   }
 
-  final compressedString = compress(jsonEncode(map));
-
-  final jsonFile = File('$jsonAssetsScriptDir/$listField.json');
-  jsonFile.writeAsStringSync(compressedString);
+  return list;
 }
 
 String compress(String str) {

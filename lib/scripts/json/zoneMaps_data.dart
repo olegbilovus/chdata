@@ -5,7 +5,7 @@ import '../../service/search/constants.dart';
 import 'constants_hidden.dart';
 
 void main() async {
-  processAndSaveData(
+  processData(
       filePath: zoneFilePath,
       listField: zoneMapListField,
       parseValues: _parseValues);

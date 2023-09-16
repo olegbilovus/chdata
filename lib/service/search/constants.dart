@@ -101,6 +101,7 @@ const mobModel = Mob(
     moveEvade: 0,
     woundEvade: 0,
     weakEvade: 0,
-    mentalEvade: 0);
+    mentalEvade: 0,
+    spawns: []);
 
 const zoneMapModel = ZoneMap(id: 0, name: '', assetName: '');
