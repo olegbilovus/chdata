@@ -51,11 +51,13 @@ SplayTreeMap<int, List<List<String>>> processSpawns(
         .split(separatorMultiValues)
         .map((e) => int.parse(e.split(separatorMobIDWeight)[0]));
     values[1] = zoneMapKeys[int.parse(values[1])] ?? emptyValueText;
-    for (final mobId in mobIds) {
-      if (result.containsKey(mobId)) {
-        result[mobId]!.add(values);
-      } else {
-        result[mobId] = [values];
+    if (values[1].isNotEmpty) {
+      for (final mobId in mobIds) {
+        if (result.containsKey(mobId)) {
+          result[mobId]!.add(values);
+        } else {
+          result[mobId] = [values];
+        }
       }
     }
   }
