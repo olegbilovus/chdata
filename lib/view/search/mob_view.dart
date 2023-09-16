@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../service/search/bloc/constants.dart';
+import 'constants.dart';
 
 class MobView extends StatefulWidget {
   const MobView({super.key});
@@ -44,7 +45,8 @@ class _MobViewState extends State<MobView> {
           },
           child: Scaffold(
             appBar: AppBar(
-              title: Text(data.data!.name),
+              title: Text(
+                  data.data!.name + (_showAll ? ' [${data.data!.id}]' : '')),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () => state.back(context),
@@ -70,7 +72,7 @@ class _MobViewState extends State<MobView> {
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
                 child: Column(
-                  children: _createColumnChildren(data.data!),
+                  children: _createColumnChildren(data.data!, state.back),
                 ),
               ),
             ),
@@ -87,7 +89,7 @@ class _MobViewState extends State<MobView> {
         .add(SearchEventShowData(key: key, database: mobListField, back: back));
   }
 
-  List<Widget> _createColumnChildren(Mob data) {
+  List<Widget> _createColumnChildren(Mob data, Back back) {
     final children = <Widget>[];
 
     children.addAll(createSection(
@@ -110,6 +112,52 @@ class _MobViewState extends State<MobView> {
           context.loc.mob_goldMax: numFormatter(data.goldMax)
         },
         showAll: _showAll));
+    if (data.spawns.isNotEmpty) {
+      children.add(createHeader('Spawns'));
+      children.add(const SizedBox(height: 10));
+      children.add(
+        SizedBox(
+          height: MediaQuery.of(context).size.height / 7,
+          child: Center(
+            child: ListView.builder(
+              itemCount: data.spawns.length,
+              itemBuilder: (context, index) {
+                final spawn = data.spawns.elementAt(index);
+                return ListTile(
+                  title: Text(spawn.zoneKey.split(separator)[0],
+                      maxLines: 1,
+                      softWrap: true,
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center),
+                  subtitle: Text(
+                      '${getTimeFromSeconds(spawn.minSpawnSecs)} - ${getTimeFromSeconds(spawn.maxSpawnSecs)}',
+                      textAlign: TextAlign.center),
+                  trailing: const Icon(Icons.map),
+                  onTap: () {
+                    dev.log('ShowMap: ${spawn.zoneKey}');
+                    context.read<SearchBloc>().add(
+                          SearchEventShowData(
+                            key: spawn.zoneKey,
+                            database: zoneMapListField,
+                            back: (context) {
+                              context.read<SearchBloc>().add(
+                                    SearchEventShowData(
+                                        key: '${data.name}$separator${data.id}',
+                                        database: mobListField,
+                                        back: back),
+                                  );
+                            },
+                          ),
+                        );
+                  },
+                );
+              },
+            ),
+          ),
+        ),
+      );
+      children.add(const Divider(thickness: dividerThickness));
+    }
     children.addAll(createSection(
         context.loc.mob_damage,
         {

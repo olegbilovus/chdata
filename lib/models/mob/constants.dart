@@ -5,3 +5,7 @@ const friendlyText = 'Friendly';
 const hostileText = 'Hostile';
 const passiveText = 'Passive';
 const noneText = 'None';
+
+const separatorMobIDWeight = '|';
+const separatorSpawnTimers = '-';
+const separatorSpawnTimersValues = ' ';

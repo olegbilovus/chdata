@@ -54,3 +54,20 @@ Column createData(Map<String, String> data, {bool showAll = false}) {
     children: children,
   );
 }
+
+String getTimeFromSeconds(int seconds) {
+  final duration = Duration(seconds: seconds);
+  var str = '';
+  if (duration.inDays > 0) {
+    str += '${duration.inDays.remainder(60)} days ';
+  }
+  if (duration.inMinutes > 0) {
+    str += '${duration.inMinutes.remainder(60)} minutes ';
+  }
+  final timerSeconds = duration.inSeconds.remainder(60);
+  if (timerSeconds > 0) {
+    str += '$timerSeconds seconds';
+  }
+
+  return str;
+}

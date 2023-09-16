@@ -45,7 +45,8 @@ class _ItemViewState extends State<ItemView> {
           },
           child: Scaffold(
             appBar: AppBar(
-              title: Text(data.data!.name),
+              title: Text(
+                  data.data!.name + (_showAll ? ' [${data.data!.id}]' : '')),
               leading: IconButton(
                 icon: const Icon(Icons.arrow_back),
                 onPressed: () => state.back(context),
