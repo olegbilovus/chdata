@@ -15,14 +15,14 @@ class BinarySearchOccurrences {
     int finish,
   ) {
     if (start == finish) {
-      if (equals(getKey(items[start]).toLowerCase(), pattern)) {
+      if (equals(getKey(items[start]), pattern)) {
         return start;
       }
       return -1;
     }
 
     int middle = ((start + finish) / 2).floor();
-    final middleItem = getKey(items[middle]).toLowerCase();
+    final middleItem = getKey(items[middle]);
     if (equals(middleItem, pattern)) {
       return _firstOccurrence<T>(items, pattern, getKey, equals, start, middle);
     }
@@ -43,19 +43,19 @@ class BinarySearchOccurrences {
   ) {
     bool twoEl = finish - start == 1;
     if (twoEl) {
-      if (equals(getKey(items[finish]).toLowerCase(), pattern)) {
+      if (equals(getKey(items[finish]), pattern)) {
         return finish;
       }
     }
     if (start == finish || twoEl) {
-      if (equals(getKey(items[start]).toLowerCase(), pattern)) {
+      if (equals(getKey(items[start]), pattern)) {
         return start;
       }
       return -1;
     }
 
     int middle = ((start + finish) / 2).floor();
-    final middleItem = getKey(items[middle]).toLowerCase();
+    final middleItem = getKey(items[middle]);
     if (middleItem.startsWith(pattern)) {
       return _lastOccurrence<T>(items, pattern, getKey, equals, middle, finish);
     }
@@ -68,7 +68,7 @@ class BinarySearchOccurrences {
 
   static (int, int) searchIndexes<T>(List<T> items, dynamic pattern,
       {GetKey getKey = _defaultGetKey, Equals equals = _defaultEquals}) {
-    final patternLower = pattern.toLowerCase();
+    final patternLower = pattern;
     final length = items.length - 1;
     int first =
         _firstOccurrence<T>(items, patternLower, getKey, equals, 0, length);
