@@ -7,8 +7,11 @@ class ZoneMap implements Model {
   final String name;
   final String assetName;
 
-  const ZoneMap(
-      {required this.id, required this.name, required this.assetName});
+  const ZoneMap({
+    required this.id,
+    required this.name,
+    required this.assetName,
+  });
 
   ZoneMap.fromJson(Map<String, dynamic> json)
       : id = json[zoneMapIdField] as int,

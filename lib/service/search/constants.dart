@@ -73,7 +73,8 @@ const itemModel = Item(
         vitality: 0,
         maleOnly: false,
         level: 0),
-    clasz: Class.none);
+    clasz: Class.none,
+    mobs: []);
 
 const mobModel = Mob(
     id: 0,
@@ -102,6 +103,7 @@ const mobModel = Mob(
     woundEvade: 0,
     weakEvade: 0,
     mentalEvade: 0,
-    spawns: []);
+    spawns: [],
+    drops: []);
 
 const zoneMapModel = ZoneMap(id: 0, name: '', assetName: '');

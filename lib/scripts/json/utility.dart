@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:archive/archive.dart';
+import 'package:chdata/utilities/strings/process.dart';
 
 import '../../service/search/constants.dart';
 import 'constants.dart';
@@ -11,12 +12,14 @@ String processData(
     {required String filePath,
     required ParseValues parseValues,
     String? listField}) {
-  final map = SplayTreeMap<String, Map<String, dynamic>>();
+  final map = SplayTreeMap<String, Map<String, dynamic>>(
+    (key1, key2) => processForSort(key1).compareTo(processForSort(key2)),
+  );
   final listValues = getValues(filePath);
 
   for (final values in listValues) {
     final model = parseValues(values);
-    map['${model.name}$separator${model.id}'] = model.toJson();
+    map[buildKey(model.name, model.id)] = model.toJson();
   }
 
   final compressedString = compress(jsonEncode(map));
@@ -42,6 +45,7 @@ List<List<String>> getValues(String filePath) {
       if (e.endsWith("'")) {
         str = str.substring(0, str.length - 1);
       }
+      str = str.replaceAll('[', '').replaceAll(']', '');
       return str.trim();
     }).toList();
     list.add(values);
@@ -63,3 +67,5 @@ String decompress(String str) {
   final decompressedString = utf8.decode(decodeGZip);
   return decompressedString;
 }
+
+String buildKey(String name, int id) => '$name$separator$id';

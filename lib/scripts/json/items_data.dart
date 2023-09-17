@@ -21,24 +21,24 @@ void main() async {
 Item _parseValues(List<String> values) {
   final (damage, fishingDamage) = getAdvanceStatsAndFishing(values[12]);
   return Item(
-    id: parseInt(values[0]),
-    name: values[1],
-    description: values[2],
-    stackable: parseBool(values[3]),
-    armor: parseInt(values[4]),
-    equipmentSlot: getEquipmentSlot(values[5]),
-    buy: parseInt(values[6]),
-    sell: parseInt(values[7]),
-    weight: parseInt(values[8]),
-    attackSpeed: parseInt(values[9]),
-    subType: getSubType(values[10]),
-    noTrade: parseBool(values[11]),
-    damage: damage,
-    fishingDamage: fishingDamage,
-    bonusStats: getAdvanceStatsBonus(values[13]),
-    requirements: getRequirements(values[14]),
-    clasz: getClass(values[15]),
-  );
+      id: parseInt(values[0]),
+      name: values[1],
+      description: values[2],
+      stackable: parseBool(values[3]),
+      armor: parseInt(values[4]),
+      equipmentSlot: getEquipmentSlot(values[5]),
+      buy: parseInt(values[6]),
+      sell: parseInt(values[7]),
+      weight: parseInt(values[8]),
+      attackSpeed: parseInt(values[9]),
+      subType: getSubType(values[10]),
+      noTrade: parseBool(values[11]),
+      damage: damage,
+      fishingDamage: fishingDamage,
+      bonusStats: getAdvanceStatsBonus(values[13]),
+      requirements: getRequirements(values[14]),
+      clasz: getClass(values[15]),
+      mobs: []);
 }
 
 // Using functions for parsing in case the parsing changes,

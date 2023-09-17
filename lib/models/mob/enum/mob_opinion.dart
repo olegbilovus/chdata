@@ -1,1 +1,6 @@
-enum MobOpinion { friendly, hostile, passive, none }
+enum MobOpinion {
+  friendly,
+  hostile,
+  passive,
+  none,
+}

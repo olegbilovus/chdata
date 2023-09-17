@@ -34,6 +34,7 @@ class Mob implements Model {
   final int weakEvade;
   final int mentalEvade;
   final List<Spawn> spawns;
+  final List<String> drops;
 
   const Mob(
       {required this.id,
@@ -62,46 +63,39 @@ class Mob implements Model {
       required this.woundEvade,
       required this.weakEvade,
       required this.mentalEvade,
-      required this.spawns});
+      required this.spawns,
+      required this.drops});
 
-  factory Mob.fromJson(Map<String, dynamic> json) {
-    final spawnsData = <Spawn>[];
-    final jsonSpawns = json[mobSpawnsField];
-    if (jsonSpawns.isNotEmpty) {
-      for (final jsonSpawn in jsonSpawns) {
-        spawnsData.add(Spawn.fromJson(jsonSpawn));
-      }
-    }
-
-    return Mob(
-        id: json[mobIdField] as int,
-        name: json[mobNameField] as String,
-        range: json[mobRangeField] as double,
-        followRange: json[mobFollowRangeField] as int,
-        opinion: MobOpinion.values.byName(json[mobOpinionField]),
-        level: json[mobLevelField] as int,
-        health: json[mobHealthField] as int,
-        goldMin: json[mobGoldMinField] as int,
-        goldMax: json[mobGoldMaxField] as int,
-        attack: json[mobAttackField] as int,
-        defence: json[mobDefenceField] as int,
-        attackSpeed: json[mobAttackSpeedField] as int,
-        energy: json[mobEnergyField] as int,
-        damage: AdvanceStats.fromJson(json[mobDamageField]),
-        fishingDamage: json[mobFishingDamageField] as int,
-        resist: AdvanceStats.fromJson(json[mobResistField]),
-        stars: json[mobStarsField] as int,
-        attackRange: json[mobAttackRangeField] as double,
-        missileSpeed: json[mobMissileSpeedField] as int,
-        xp: json[mobXpField] as int,
-        physicalEvade: json[mobPhysicalEvadeField] as int,
-        spellEvade: json[mobSpellEvadeField] as int,
-        moveEvade: json[mobMoveEvadeField] as int,
-        woundEvade: json[mobWoundEvadeField] as int,
-        weakEvade: json[mobWeakEvadeField] as int,
-        mentalEvade: json[mobMentalEvadeField] as int,
-        spawns: spawnsData);
-  }
+  Mob.fromJson(Map<String, dynamic> json)
+      : id = json[mobIdField] as int,
+        name = json[mobNameField] as String,
+        range = json[mobRangeField] as double,
+        followRange = json[mobFollowRangeField] as int,
+        opinion = MobOpinion.values.byName(json[mobOpinionField]),
+        level = json[mobLevelField] as int,
+        health = json[mobHealthField] as int,
+        goldMin = json[mobGoldMinField] as int,
+        goldMax = json[mobGoldMaxField] as int,
+        attack = json[mobAttackField] as int,
+        defence = json[mobDefenceField] as int,
+        attackSpeed = json[mobAttackSpeedField] as int,
+        energy = json[mobEnergyField] as int,
+        damage = AdvanceStats.fromJson(json[mobDamageField]),
+        fishingDamage = json[mobFishingDamageField] as int,
+        resist = AdvanceStats.fromJson(json[mobResistField]),
+        stars = json[mobStarsField] as int,
+        attackRange = json[mobAttackRangeField] as double,
+        missileSpeed = json[mobMissileSpeedField] as int,
+        xp = json[mobXpField] as int,
+        physicalEvade = json[mobPhysicalEvadeField] as int,
+        spellEvade = json[mobSpellEvadeField] as int,
+        moveEvade = json[mobMoveEvadeField] as int,
+        woundEvade = json[mobWoundEvadeField] as int,
+        weakEvade = json[mobWeakEvadeField] as int,
+        mentalEvade = json[mobMentalEvadeField] as int,
+        spawns = List<Spawn>.from(
+            json[mobSpawnsField].map((e) => Spawn.fromJson(e))),
+        drops = List<String>.from(json[mobDropsField]);
 
   @override
   Mob fromJson(Map<String, dynamic> json) => Mob.fromJson(json);
@@ -135,6 +129,7 @@ class Mob implements Model {
         mobWeakEvadeField: weakEvade,
         mobMentalEvadeField: mentalEvade,
         mobSpawnsField: spawns.map((e) => e.toJson()).toList(),
+        mobDropsField: drops
       };
 }
 
@@ -165,3 +160,4 @@ const mobWoundEvadeField = 'woundEvade';
 const mobWeakEvadeField = 'weakEvade';
 const mobMentalEvadeField = 'mentalEvade';
 const mobSpawnsField = 'spawns';
+const mobDropsField = 'drops';
