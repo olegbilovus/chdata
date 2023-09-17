@@ -73,7 +73,8 @@ const itemModel = Item(
         vitality: 0,
         maleOnly: false,
         level: 0),
-    clasz: Class.none);
+    clasz: Class.none,
+    mobs: []);
 
 const mobModel = Mob(
     id: 0,

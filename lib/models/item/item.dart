@@ -27,6 +27,7 @@ class Item implements Model {
   final AdvanceStatsBonus bonusStats;
   final Requirements requirements;
   final Class clasz;
+  final List<String> mobs;
 
   const Item(
       {required this.id,
@@ -45,7 +46,8 @@ class Item implements Model {
       required this.fishingDamage,
       required this.bonusStats,
       required this.requirements,
-      required this.clasz});
+      required this.clasz,
+      required this.mobs});
 
   Item.fromJson(Map<String, dynamic> json)
       : id = json[itemIdField] as int,
@@ -65,7 +67,8 @@ class Item implements Model {
         fishingDamage = json[itemFishingDamageField] as int,
         bonusStats = AdvanceStatsBonus.fromJson(json[itemBonusStatsField]),
         requirements = Requirements.fromJson(json[itemRequirementsField]),
-        clasz = Class.values.byName(json[itemClaszField]);
+        clasz = Class.values.byName(json[itemClaszField]),
+        mobs = List<String>.from(json[itemMobsField]);
 
   @override
   Item fromJson(Map<String, dynamic> json) => Item.fromJson(json);
@@ -88,7 +91,8 @@ class Item implements Model {
         itemFishingDamageField: fishingDamage,
         itemBonusStatsField: bonusStats.toJson(),
         itemRequirementsField: requirements.toJson(),
-        itemClaszField: clasz.name
+        itemClaszField: clasz.name,
+        itemMobsField: mobs
       };
 }
 
@@ -109,3 +113,4 @@ const itemFishingDamageField = 'fishingDamage';
 const itemBonusStatsField = 'bonusStats';
 const itemRequirementsField = 'requirements';
 const itemClaszField = 'clasz';
+const itemMobsField = 'mobs';

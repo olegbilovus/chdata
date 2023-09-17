@@ -19,7 +19,7 @@ String processData(
 
   for (final values in listValues) {
     final model = parseValues(values);
-    map['${model.name}$separator${model.id}'] = model.toJson();
+    map[buildKey(model.name, model.id)] = model.toJson();
   }
 
   final compressedString = compress(jsonEncode(map));
@@ -67,3 +67,5 @@ String decompress(String str) {
   final decompressedString = utf8.decode(decodeGZip);
   return decompressedString;
 }
+
+String buildKey(String name, int id) => '$name$separator$id';
