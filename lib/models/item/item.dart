@@ -28,50 +28,44 @@ class Item implements Model {
   final Requirements requirements;
   final Class clasz;
 
-  const Item({required this.id,
-    required this.name,
-    required this.description,
-    required this.stackable,
-    required this.armor,
-    required this.equipmentSlot,
-    required this.buy,
-    required this.sell,
-    required this.weight,
-    required this.attackSpeed,
-    required this.subType,
-    required this.noTrade,
-    required this.damage,
-    required this.fishingDamage,
-    required this.bonusStats,
-    required this.requirements,
-    required this.clasz});
+  const Item(
+      {required this.id,
+      required this.name,
+      required this.description,
+      required this.stackable,
+      required this.armor,
+      required this.equipmentSlot,
+      required this.buy,
+      required this.sell,
+      required this.weight,
+      required this.attackSpeed,
+      required this.subType,
+      required this.noTrade,
+      required this.damage,
+      required this.fishingDamage,
+      required this.bonusStats,
+      required this.requirements,
+      required this.clasz});
 
-  factory Item.fromJson(Map<String, dynamic> json) {
-    final advanceStatsDamage = AdvanceStats.fromJson(json[itemDamageField]);
-    final advanceStatsBonus =
-        AdvanceStatsBonus.fromJson(json[itemBonusStatsField]);
-    final reqs = Requirements.fromJson(json[itemRequirementsField]);
-
-    return Item(
-        id: json[itemIdField] as int,
-        name: json[itemNameField] as String,
-        description: json[itemDescriptionField] as String,
-        stackable: json[itemStackableField] as bool,
-        armor: json[itemArmorField] as int,
-        equipmentSlot:
+  Item.fromJson(Map<String, dynamic> json)
+      : id = json[itemIdField] as int,
+        name = json[itemNameField] as String,
+        description = json[itemDescriptionField] as String,
+        stackable = json[itemStackableField] as bool,
+        armor = json[itemArmorField] as int,
+        equipmentSlot =
             EquipmentSlot.values.byName(json[itemEquipmentSlotField]),
-        buy: json[itemBuyField] as int,
-        sell: json[itemSellField] as int,
-        weight: json[itemWeightField] as int,
-        attackSpeed: json[itemAttackSpeedField] as int,
-        subType: SubType.values.byName(json[itemSubTypeField]),
-        noTrade: json[itemNoTradeField] as bool,
-        damage: advanceStatsDamage,
-        fishingDamage: json[itemFishingDamageField] as int,
-        bonusStats: advanceStatsBonus,
-        requirements: reqs,
-        clasz: Class.values.byName(json[itemClaszField]));
-  }
+        buy = json[itemBuyField] as int,
+        sell = json[itemSellField] as int,
+        weight = json[itemWeightField] as int,
+        attackSpeed = json[itemAttackSpeedField] as int,
+        subType = SubType.values.byName(json[itemSubTypeField]),
+        noTrade = json[itemNoTradeField] as bool,
+        damage = AdvanceStats.fromJson(json[itemDamageField]),
+        fishingDamage = json[itemFishingDamageField] as int,
+        bonusStats = AdvanceStatsBonus.fromJson(json[itemBonusStatsField]),
+        requirements = Requirements.fromJson(json[itemRequirementsField]),
+        clasz = Class.values.byName(json[itemClaszField]);
 
   @override
   Item fromJson(Map<String, dynamic> json) => Item.fromJson(json);

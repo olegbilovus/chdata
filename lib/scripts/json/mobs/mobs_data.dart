@@ -64,7 +64,8 @@ Mob _parseValues(List<String> values) {
       woundEvade: parseInt(values[40]),
       weakEvade: parseInt(values[41]),
       mentalEvade: parseInt(values[42]),
-      spawns: []);
+      spawns: [],
+      drops: []);
 }
 
 MobOpinion getOpinion(String opinion) {
