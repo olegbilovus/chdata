@@ -72,7 +72,7 @@ class _ItemViewState extends State<ItemView> {
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
                 child: Column(
-                  children: _createColumnChildren(data.data!),
+                  children: _createColumnChildren(data.data!, state.back),
                 ),
               ),
             ),
@@ -99,7 +99,7 @@ class _ItemViewState extends State<ItemView> {
         SearchEventShowData(key: key, database: itemListField, back: back));
   }
 
-  List<Widget> _createColumnChildren(Item data) {
+  List<Widget> _createColumnChildren(Item data, Back back) {
     final children = <Widget>[];
 
     children.addAll(createSection(
@@ -118,6 +118,29 @@ class _ItemViewState extends State<ItemView> {
           context.loc.item_sell: data.sell.toString(),
         },
         showAll: _showAll));
+
+    if (data.mobs.isNotEmpty) {
+      final list =
+          createList(context, 'Mobs', data.mobs, Icons.notes, (element) {
+        dev.log('ShowMob: $element');
+        context.read<SearchBloc>().add(
+              SearchEventShowData(
+                key: element,
+                database: mobListField,
+                back: (context) {
+                  context.read<SearchBloc>().add(
+                        SearchEventShowData(
+                            key: '${data.name}$separator${data.id}',
+                            database: itemListField,
+                            back: back),
+                      );
+                },
+              ),
+            );
+      }, getTitle: (element) => element.split(separator)[0]);
+      children.addAll(list);
+    }
+
     children.addAll(createSection(
         context.loc.mob_damage,
         {

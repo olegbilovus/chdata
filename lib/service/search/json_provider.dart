@@ -38,7 +38,7 @@ class JsonProvider implements SearchProvider {
       required T model}) async {
     final asset = await _loadAsset(database);
     final keys = _assetsKeys[database]!;
-    final keyLower = key.toLowerCase();
+    final keyLower = processForSort(key);
 
     final List<SearchData<T>> data = [];
     if (contains) {
@@ -50,8 +50,8 @@ class JsonProvider implements SearchProvider {
         }
       }
     } else {
-      final result =
-          BinarySearchOccurrences.search<String>(keys, key, getKey: _getKey);
+      final result = BinarySearchOccurrences.search<String>(keys, keyLower,
+          getKey: _getKey);
       for (final res in result) {
         data.add(SearchData<T>(
             key: res,

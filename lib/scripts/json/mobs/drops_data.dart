@@ -5,6 +5,7 @@ import 'dart:io';
 import 'package:chdata/models/item/item.dart';
 import 'package:chdata/models/mob/mob.dart';
 import 'package:chdata/utilities/alg/binary_search_occurrences.dart';
+import 'package:chdata/utilities/strings/process.dart';
 
 import '../constants_hidden.dart';
 import '../utility.dart';
@@ -58,11 +59,17 @@ void main() {
         }
       }
     }
+    drops.sort((a, b) => processForSort(a).compareTo(processForSort(b)));
     mob[mobDropsField] = drops;
   }
 
   final mobJsonCompressed = compress(jsonEncode(mobsJson));
   mobsFile.writeAsStringSync(mobJsonCompressed);
+
+  for (final item in itemJsonValues) {
+    item[itemMobsField]
+        .sort((a, b) => processForSort(a).compareTo(processForSort(b)));
+  }
 
   final itemJsonCompressed = compress(jsonEncode(itemsJson));
   itemsFile.writeAsStringSync(itemJsonCompressed);

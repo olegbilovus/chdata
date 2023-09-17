@@ -1,3 +1,4 @@
+import 'package:chdata/utilities/alg/binary_search_occurrences.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -53,6 +54,51 @@ Column createData(Map<String, String> data, {bool showAll = false}) {
   return Column(
     children: children,
   );
+}
+
+typedef GetSubTitle = Text? Function(dynamic element);
+typedef OnTap = void Function(dynamic element);
+
+List<Widget> createList(
+  BuildContext context,
+  String header,
+  List items,
+  IconData icon,
+  OnTap onTap, {
+  required GetKey getTitle,
+  GetSubTitle? getSubTitle,
+}) {
+  final children = <Widget>[];
+
+  children.add(createHeader(header));
+  children.add(const SizedBox(height: 10));
+  children.add(
+    SizedBox(
+      height: (MediaQuery.of(context).size.height / 7) *
+          (1 + (items.length * 0.002)),
+      child: Center(
+        child: ListView.builder(
+          itemCount: items.length,
+          itemBuilder: (context, index) {
+            final data = items.elementAt(index);
+            return ListTile(
+              title: Text(getTitle(data),
+                  maxLines: 1,
+                  softWrap: true,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center),
+              subtitle: getSubTitle != null ? getSubTitle(data) : null,
+              trailing: Icon(icon),
+              onTap: () => onTap(data),
+            );
+          },
+        ),
+      ),
+    ),
+  );
+  children.add(const Divider(thickness: dividerThickness));
+
+  return children;
 }
 
 String getTimeFromSeconds(int seconds) {

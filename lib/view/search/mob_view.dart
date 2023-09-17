@@ -13,7 +13,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../service/search/bloc/constants.dart';
-import 'constants.dart';
 
 class MobView extends StatefulWidget {
   const MobView({super.key});
@@ -112,52 +111,55 @@ class _MobViewState extends State<MobView> {
           context.loc.mob_goldMax: numFormatter(data.goldMax)
         },
         showAll: _showAll));
+
     if (data.spawns.isNotEmpty) {
-      children.add(createHeader('Spawns'));
-      children.add(const SizedBox(height: 10));
-      children.add(
-        SizedBox(
-          height: MediaQuery.of(context).size.height / 7,
-          child: Center(
-            child: ListView.builder(
-              itemCount: data.spawns.length,
-              itemBuilder: (context, index) {
-                final spawn = data.spawns.elementAt(index);
-                return ListTile(
-                  title: Text(spawn.zoneKey.split(separator)[0],
-                      maxLines: 1,
-                      softWrap: true,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center),
-                  subtitle: Text(
-                      '${getTimeFromSeconds(spawn.minSpawnSecs)} - ${getTimeFromSeconds(spawn.maxSpawnSecs)}',
-                      textAlign: TextAlign.center),
-                  trailing: const Icon(Icons.map),
-                  onTap: () {
-                    dev.log('ShowMap: ${spawn.zoneKey}');
-                    context.read<SearchBloc>().add(
-                          SearchEventShowData(
-                            key: spawn.zoneKey,
-                            database: zoneMapListField,
-                            back: (context) {
-                              context.read<SearchBloc>().add(
-                                    SearchEventShowData(
-                                        key: '${data.name}$separator${data.id}',
-                                        database: mobListField,
-                                        back: back),
-                                  );
-                            },
-                          ),
-                        );
-                  },
-                );
-              },
-            ),
-          ),
-        ),
-      );
-      children.add(const Divider(thickness: dividerThickness));
+      final list = createList(context, 'Spawns', data.spawns, Icons.map,
+          (element) {
+        dev.log('ShowMap: ${element.zoneKey}');
+        context.read<SearchBloc>().add(
+              SearchEventShowData(
+                key: element.zoneKey,
+                database: zoneMapListField,
+                back: (context) {
+                  context.read<SearchBloc>().add(
+                        SearchEventShowData(
+                            key: '${data.name}$separator${data.id}',
+                            database: mobListField,
+                            back: back),
+                      );
+                },
+              ),
+            );
+      },
+          getTitle: (element) => element.zoneKey.split(separator)[0],
+          getSubTitle: (element) => Text(
+              '${getTimeFromSeconds(element.minSpawnSecs)} - ${getTimeFromSeconds(element.maxSpawnSecs)}',
+              textAlign: TextAlign.center));
+      children.addAll(list);
     }
+
+    if (data.drops.isNotEmpty) {
+      final list =
+          createList(context, 'Drops', data.drops, Icons.notes, (element) {
+        dev.log('ShowItem: $element');
+        context.read<SearchBloc>().add(
+              SearchEventShowData(
+                key: element,
+                database: itemListField,
+                back: (context) {
+                  context.read<SearchBloc>().add(
+                        SearchEventShowData(
+                            key: '${data.name}$separator${data.id}',
+                            database: mobListField,
+                            back: back),
+                      );
+                },
+              ),
+            );
+      }, getTitle: (element) => element.split(separator)[0]);
+      children.addAll(list);
+    }
+
     children.addAll(createSection(
         context.loc.mob_damage,
         {
