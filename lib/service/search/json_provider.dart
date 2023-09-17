@@ -5,7 +5,7 @@ import 'package:chdata/scripts/json/utility.dart';
 import 'package:chdata/service/search/search_data.dart';
 import 'package:chdata/service/search/search_provider.dart';
 import 'package:chdata/utilities/alg/binary_search_occurrences.dart';
-import 'package:chdata/utilities/strings/manipulation.dart';
+import 'package:chdata/utilities/strings/process.dart';
 import 'package:flutter/services.dart';
 
 import '../../models/model.dart';

@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:archive/archive.dart';
-import 'package:chdata/utilities/strings/manipulation.dart';
+import 'package:chdata/utilities/strings/process.dart';
 
 import '../../service/search/constants.dart';
 import 'constants.dart';

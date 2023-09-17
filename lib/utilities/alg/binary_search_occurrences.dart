@@ -56,7 +56,7 @@ class BinarySearchOccurrences {
 
     int middle = ((start + finish) / 2).floor();
     final middleItem = getKey(items[middle]);
-    if (middleItem.startsWith(pattern)) {
+    if (equals(middleItem, pattern)) {
       return _lastOccurrence<T>(items, pattern, getKey, equals, middle, finish);
     }
     if (middleItem.compareTo(pattern) == -1) {
@@ -82,7 +82,8 @@ class BinarySearchOccurrences {
 
   static List<T> search<T>(List<T> items, dynamic pattern,
       {GetKey getKey = _defaultGetKey, Equals equals = _defaultEquals}) {
-    final (first, last) = searchIndexes<T>(items, pattern, getKey: getKey);
+    final (first, last) =
+        searchIndexes<T>(items, pattern, getKey: getKey, equals: equals);
     if (first != -1) {
       return items.sublist(first, last + 1);
     }
