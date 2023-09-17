@@ -107,6 +107,9 @@ String getTimeFromSeconds(int seconds) {
   if (duration.inDays > 0) {
     str += '${duration.inDays.remainder(60)} days ';
   }
+  if (duration.inHours > 0) {
+    str += '${duration.inHours.remainder(60)} hours ';
+  }
   if (duration.inMinutes > 0) {
     str += '${duration.inMinutes.remainder(60)} minutes ';
   }
