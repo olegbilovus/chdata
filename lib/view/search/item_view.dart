@@ -38,10 +38,10 @@ class _ItemViewState extends State<ItemView> {
         state as SearchStateShowingData<Item>;
         final data = state.data;
         dev.log('ItemView: ${data.key}');
-        return WillPopScope(
-          onWillPop: () {
+        return PopScope(
+          canPop: true,
+          onPopInvoked: (didPop) {
             state.back(context);
-            return Future.value(false);
           },
           child: Scaffold(
             appBar: AppBar(

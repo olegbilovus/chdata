@@ -37,10 +37,10 @@ class _MobViewState extends State<MobView> {
         state as SearchStateShowingData<Mob>;
         final data = state.data;
         dev.log('MobView: ${data.key}');
-        return WillPopScope(
-          onWillPop: () {
+        return PopScope(
+          canPop: true,
+          onPopInvoked: (didPop) {
             state.back(context);
-            return Future.value(false);
           },
           child: Scaffold(
             appBar: AppBar(

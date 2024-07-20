@@ -28,7 +28,7 @@ List<Widget> createSection(String header, Map<String, String> data,
 Widget createHeader(String text) {
   return Text(
     text,
-    textScaleFactor: 1.5,
+    textScaler: const TextScaler.linear(1.5),
     style: const TextStyle(
       fontWeight: FontWeight.bold,
     ),

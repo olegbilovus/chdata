@@ -24,10 +24,10 @@ class _ZoneViewState extends State<ZoneView> {
         state as SearchStateShowingData<ZoneMap>;
         final data = state.data;
         dev.log('ZoneView: ${data.key}');
-        return WillPopScope(
-          onWillPop: () {
+        return PopScope(
+          canPop: true,
+          onPopInvoked: (didPop) {
             state.back(context);
-            return Future.value(false);
           },
           child: Scaffold(
             appBar: AppBar(
