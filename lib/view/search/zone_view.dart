@@ -26,7 +26,7 @@ class _ZoneViewState extends State<ZoneView> {
         dev.log('ZoneView: ${data.key}');
         return PopScope(
           canPop: true,
-          onPopInvoked: (didPop) {
+          onPopInvokedWithResult: (didPop, _) {
             state.back(context);
           },
           child: Scaffold(

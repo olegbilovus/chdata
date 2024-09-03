@@ -40,7 +40,7 @@ class _ItemViewState extends State<ItemView> {
         dev.log('ItemView: ${data.key}');
         return PopScope(
           canPop: true,
-          onPopInvoked: (didPop) {
+          onPopInvokedWithResult: (didPop, _) {
             state.back(context);
           },
           child: Scaffold(

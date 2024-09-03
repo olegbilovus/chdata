@@ -39,7 +39,7 @@ class _MobViewState extends State<MobView> {
         dev.log('MobView: ${data.key}');
         return PopScope(
           canPop: true,
-          onPopInvoked: (didPop) {
+          onPopInvokedWithResult: (didPop, _) {
             state.back(context);
           },
           child: Scaffold(
