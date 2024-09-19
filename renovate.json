@@ -3,7 +3,5 @@
   "extends": [
     "config:recommended"
   ],
-  "fileMatch": [
-    "(^|/)pubspec\\.ya?ml$"
-  ]
+  "enabledManagers": ["pub", "github-actions"]
 }
