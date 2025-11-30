@@ -26,6 +26,9 @@ jobs:
       - name: Restore packages
         run: flutter pub get
 
+      - name: Generate Localizations
+        run: flutter gen-l10n
+
       - name: Creates web build
         run: flutter build web --release
 
