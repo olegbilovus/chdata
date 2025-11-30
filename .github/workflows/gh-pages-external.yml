@@ -30,7 +30,7 @@ jobs:
         run: flutter gen-l10n
 
       - name: Creates web build
-        run: flutter build web --release
+        run: flutter build web --release --no-wasm-dry-run
 
       - name: Replace base href
         run: sed -i 's\<base href="/">\<base href="./">\g' build/web/index.html
