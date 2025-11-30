@@ -33,6 +33,3 @@ flutter:
   assets:
     - assets/json/
     - assets/images/zones/
-
-flutter_intl:
-  enabled: true
